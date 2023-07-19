@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-07-17T23:18:38.547Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="te1_tBjk8QrVgZU-eXnf" version="20.2.7" type="github">
+<mxfile host="app.diagrams.net" modified="2023-07-19T23:29:45.289Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="_A4xLJppbbHmSaCa3Atv" version="21.6.2" type="github">
   <diagram name="Page-1" id="1V0CLLzbelv8tu37RJcn">
-    <mxGraphModel dx="1130" dy="615" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1434" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -16,7 +16,7 @@
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-4" value="Testing" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF6666;" parent="1" vertex="1">
           <mxGeometry x="250" y="480" width="250" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-5" value="Allow users to place 2 counters per turn" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFF99;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-5" value="Allow users to place 2 counters per turn." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFF99;" parent="1" vertex="1">
           <mxGeometry x="500" y="240" width="250" height="30" as="geometry" />
         </mxCell>
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-6" value="Randomise who starts." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFF99;" parent="1" vertex="1">
@@ -25,28 +25,25 @@
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-7" value="Allow the users to add a timer to turns before the game starts if they want to speed up the process. If user enters 0 then don&#39;t add a timer." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFF99;" parent="1" vertex="1">
           <mxGeometry x="500" y="300" width="250" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-9" value="Blue and Red counters for team colours, can change in colourblind settings" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FF99;" parent="1" vertex="1">
-          <mxGeometry x="500" y="120" width="250" height="30" as="geometry" />
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-9" value="Blue and Red counters for team colours, can change in colourblind settings." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FF99;" parent="1" vertex="1">
+          <mxGeometry x="500" y="120" width="250" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-10" value="Counters stack on top of each other and cannot be floating" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FF99;" parent="1" vertex="1">
-          <mxGeometry x="500" y="150" width="250" height="30" as="geometry" />
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-10" value="Counters stack on top of each other and cannot be floating." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FF99;" parent="1" vertex="1">
+          <mxGeometry x="500" y="160" width="250" height="40" as="geometry" />
         </mxCell>
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-11" value="Once the user gets (INSERT NUMBER) of counters in a row they win the game." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FF99;" parent="1" vertex="1">
-          <mxGeometry x="500" y="180" width="250" height="30" as="geometry" />
+          <mxGeometry x="500" y="200" width="250" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-12" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FF99;" parent="1" vertex="1">
-          <mxGeometry x="500" y="210" width="250" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-13" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF66B3;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-13" value="Skip opponents turn." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF66B3;" parent="1" vertex="1">
           <mxGeometry x="500" y="720" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-14" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF66B3;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-14" value="Get extra counter - Can store this." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF66B3;" parent="1" vertex="1">
           <mxGeometry x="500" y="750" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-15" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF66B3;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-15" value="Delete enemy counter anywhere on the board." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF66B3;" parent="1" vertex="1">
           <mxGeometry x="500" y="780" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-16" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF66B3;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-16" value="Take the opponents turn for them." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF66B3;" parent="1" vertex="1">
           <mxGeometry x="500" y="810" width="250" height="30" as="geometry" />
         </mxCell>
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-17" value="Ensure that the users turn swaps over after placing both counters or if the timer runs out." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF6666;" parent="1" vertex="1">
@@ -55,22 +52,22 @@
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-18" value="Ensure that the user cannot place more than 2 counters per turn." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF6666;" parent="1" vertex="1">
           <mxGeometry x="500" y="540" width="250" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-21" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF99CC;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-21" value="Animations" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF99CC;" parent="1" vertex="1">
           <mxGeometry x="250" y="600" width="250" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-22" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF66B3;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-22" value="Power up slots" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF66B3;" parent="1" vertex="1">
           <mxGeometry x="250" y="720" width="250" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-23" value="Colourblind modes: Deuteranopia,&amp;nbsp;Tritanopia&amp;nbsp; and&amp;nbsp;Protanopia&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-23" value="Colourblind modes: Deuteranopia,&amp;nbsp;Tritanopia&amp;nbsp; and&amp;nbsp;Protanopia." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;" parent="1" vertex="1">
           <mxGeometry x="500" y="360" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-24" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF99CC;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-24" value="Counter placing animation." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF99CC;" parent="1" vertex="1">
           <mxGeometry x="500" y="600" width="250" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-25" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF99CC;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-25" value="Highlight counters that made the 8 in a row" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF99CC;" parent="1" vertex="1">
           <mxGeometry x="500" y="660" width="250" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-26" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-26" value="Audio" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
           <mxGeometry x="250" y="840" width="250" height="120" as="geometry" />
         </mxCell>
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-27" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
@@ -82,28 +79,22 @@
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-29" value="Restart option" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" parent="1" vertex="1">
           <mxGeometry x="250" y="1200" width="250" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-30" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" parent="1" vertex="1">
-          <mxGeometry x="500" y="1200" width="250" height="30" as="geometry" />
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-30" value="Allows users to end the game at any time." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" parent="1" vertex="1">
+          <mxGeometry x="500" y="1200" width="250" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-31" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" parent="1" vertex="1">
-          <mxGeometry x="500" y="1230" width="250" height="30" as="geometry" />
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-31" value="Allow user to play again once it ends." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" parent="1" vertex="1">
+          <mxGeometry x="500" y="1260" width="250" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-32" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" parent="1" vertex="1">
-          <mxGeometry x="500" y="1260" width="250" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-33" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" parent="1" vertex="1">
-          <mxGeometry x="500" y="1290" width="250" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-34" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-34" value="Counter placing sound." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="840" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-35" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-35" value="Optional background music." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="870" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-36" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-36" value="Power up obtained sound." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="900" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-37" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-37" value="Winner music." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="930" width="250" height="30" as="geometry" />
         </mxCell>
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-38" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
@@ -118,16 +109,16 @@
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-41" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="1050" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-42" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99CCFF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-42" value="Display total turns." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99CCFF;" parent="1" vertex="1">
           <mxGeometry x="500" y="1080" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-43" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99CCFF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-43" value="Display the winners name." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99CCFF;" parent="1" vertex="1">
           <mxGeometry x="500" y="1110" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-44" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99CCFF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-44" value="Display total power ups used." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99CCFF;" parent="1" vertex="1">
           <mxGeometry x="500" y="1140" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-45" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99CCFF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-45" value="Display total score over multiple games." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99CCFF;" parent="1" vertex="1">
           <mxGeometry x="500" y="1170" width="250" height="30" as="geometry" />
         </mxCell>
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-46" value="Indicator to show the users whose turn it is." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFB366;" parent="1" vertex="1">
@@ -148,7 +139,7 @@
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-54" value="Game board" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFCC;" parent="1" vertex="1">
           <mxGeometry x="250" width="250" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="9fohDuAX5fjzVCr2ZNWh-1" value="Black board, maybe look into patterns to put on the board" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFCC;" vertex="1" parent="1">
+        <mxCell id="9fohDuAX5fjzVCr2ZNWh-1" value="Black board, maybe look into patterns to put on the board." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFCC;" parent="1" vertex="1">
           <mxGeometry x="500" y="60" width="250" height="60" as="geometry" />
         </mxCell>
       </root>
