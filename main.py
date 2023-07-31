@@ -3,7 +3,50 @@ Ultimate Connect.
 Creators: Jacob Purdue and Nick Kho
 Start date: Thursday 20th July
 """
-from pygame import *
+import pygame
+import sys
+
+# Intializes pygame
+pygame.init()
+
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("jacob stinks")
+
+button_width = 200
+button_height = 100
+button_color = (0, 255, 0)  # Green color (RGB)
+button_text_color = (255, 255, 255)  # White color (RGB)
+button_text_size = 30
+button_text = "Click Me!"
+
+def draw_button(x, y):
+    pygame.draw.rect(screen, button_color, (x, y, button_width, button_height))
+    font = pygame.font.SysFont(None, button_text_size)
+    text = font.render(button_text, True, button_text_color)
+    text_rect = text.get_rect(center=(x + button_width / 2, y + button_height / 2))
+    screen.blit(text, text_rect)
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            if x < mouse_x < x + button_width and y < mouse_y < y + button_height:
+                # Do something when the button is clicked
+                print("Button clicked!")
+
+    screen.fill((255, 255, 255))  # Fill the screen with white color
+    x = (screen_width - button_width) // 2
+    y = (screen_height - button_height) // 2
+    draw_button(x, y)
+    pygame.display.flip()
+
+
 
 grid = []
 for y in range(12):
