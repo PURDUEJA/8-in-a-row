@@ -3,6 +3,7 @@ Ultimate Connect.
 Creators: Jacob Purdue and Nick Kho
 Start date: Thursday 20th July
 """
+from pygame import *
 
 grid = []
 for y in range(12):
