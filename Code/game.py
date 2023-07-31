@@ -29,6 +29,8 @@ def draw_button(x, y):
     screen.blit(text, text_rect)
 
 while True:
+    break
+    # ^ This stops the gui from being run
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -74,13 +76,13 @@ def putCounter(collumn, player):
         underneath = False
 
         row = 0
-        print(row, collumn)
+        # print(row, collumn)
 
         while underneath is False:
 
             if isUnderBlocked(row, collumn):
                 place(row, collumn, player)
-                print("placed")
+                # print("placed")
                 underneath = True
             else:
                 row += 1
@@ -91,7 +93,7 @@ def isUnderBlocked(row, collumn):
     try:
         test = (grid[row + 1][collumn] != 0)
     except IndexError:
-        print("indexerror")
+        # print("indexerror")
         return True
     if test is True:
 
@@ -107,21 +109,24 @@ def checkConnection():
         for collumn in grid:
             if collumn != 0:
                 pass
+# 14 x 12
 
-
-def checkSurroundings(row, collumn, player):
+def checkSurroundings(collumn, row, player):
+    print("checking: ", collumn, row)
     valids = []
     startingRow = row - 2
+    # Offset by two because of the loop of 3. Actually starts at -1.
     for i in range(3):
-        startingRow + 1
+        startingRow += 1
         startingCol = collumn - 2
         for x in range(3):
-            startingCol + 1
+            startingCol += 1
             try:
-                print(grid[startingRow][startingCol])
-                print(player)
-                if grid[startingRow][startingCol] is player:
-                    valids.append([startingRow, startingCol])
+                print(startingRow, startingCol, grid[startingCol][startingRow])
+                # print(grid[startingRow][startingCol])
+                # print(player)
+                if grid[startingCol][startingRow] is player:
+                    valids.append([startingCol, startingRow])
             except IndexError:
                 pass
     print(valids)
