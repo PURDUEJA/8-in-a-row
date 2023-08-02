@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-07-19T23:29:45.289Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="_A4xLJppbbHmSaCa3Atv" version="21.6.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-02T09:39:56.269Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="L9cFB9PZL9VSLPP9unuP" version="21.6.6" type="github">
   <diagram name="Page-1" id="1V0CLLzbelv8tu37RJcn">
-    <mxGraphModel dx="1434" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1674" dy="790" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -70,7 +70,7 @@
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-26" value="Audio" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
           <mxGeometry x="250" y="840" width="250" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-27" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-27" value="Menus" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
           <mxGeometry x="250" y="960" width="250" height="120" as="geometry" />
         </mxCell>
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-28" value="Winning results" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99CCFF;" parent="1" vertex="1">
@@ -97,16 +97,16 @@
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-37" value="Winner music." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B266FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="930" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-38" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-38" value="Play Button" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="960" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-39" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-39" value="Options Button" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="990" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-40" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-40" value="Quit Button" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="1020" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-41" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
+        <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-41" value="Title and background" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6666FF;" parent="1" vertex="1">
           <mxGeometry x="500" y="1050" width="250" height="30" as="geometry" />
         </mxCell>
         <mxCell id="xJX9_Ucr9eQ6uJBBNaWm-42" value="Display total turns." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99CCFF;" parent="1" vertex="1">
