@@ -10,7 +10,10 @@ BG = pygame.image.load("../assets/Background.png")
 
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
+
     return pygame.font.Font("../assets/DiloWorld-mLJLv.ttf", size)
+
+
 
 
 def play():
