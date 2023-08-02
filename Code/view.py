@@ -4,7 +4,7 @@ from Button import Button
 pygame.init()
 
 SCREEN = pygame.display.set_mode((1280, 720))
-pygame.display.set_caption("Menu")
+pygame.display.set_caption("Ultimate Connect")
 
 BG = pygame.image.load("../assets/Background.png")
 
@@ -14,6 +14,7 @@ def get_font(size):  # Returns Press-Start-2P in the desired size
 
 
 def play():
+    """Starts the game when clicked."""
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
@@ -41,6 +42,7 @@ def play():
 
 
 def options():
+    """Allows the user to change some settings."""
     while True:
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
 
@@ -68,12 +70,13 @@ def options():
 
 
 def main_menu():
+    """Main menu for the game."""
     while True:
         SCREEN.blit(BG, (0, 0))
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
+        MENU_TEXT = get_font(100).render("Ultimate Connect", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
         PLAY_BUTTON = Button(image=pygame.image.load("../assets/Play Rect.png"), pos=(640, 250),

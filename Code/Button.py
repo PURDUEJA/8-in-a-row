@@ -1,6 +1,6 @@
 import pygame
 
-# From https://github.com/russs123/pygame_tutorials/blob/main/Button/exit_btn.png
+# From
 # button class
 class Button():
 	def __init__(self, image, pos, text_input, font, base_color, hovering_color):
