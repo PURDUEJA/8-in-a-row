@@ -48,8 +48,6 @@ while True:
     draw_button(x, y)
     pygame.display.flip()
 
-
-
 grid = []
 for y in range(12):
 
@@ -109,27 +107,45 @@ def checkConnection():
         for collumn in grid:
             if collumn != 0:
                 pass
+
+
 # 14 x 12
 
 def checkSurroundings(collumn, row, player):
     print("checking: ", collumn, row)
     valids = []
     startingRow = row - 2
+    print(grid[11][1])
+
     # Offset by two because of the loop of 3. Actually starts at -1.
     for i in range(3):
+        print(startingRow, "the starting row")
         startingRow += 1
         startingCol = collumn - 2
         for x in range(3):
+            print(startingCol, "col")
             startingCol += 1
             try:
                 print(startingRow, startingCol, grid[startingCol][startingRow])
                 # print(grid[startingRow][startingCol])
                 # print(player)
                 if grid[startingCol][startingRow] is player:
-                    valids.append([startingCol, startingRow])
+
+                    # Add it if the coordinate is the original coordinate provided.
+                    print(startingCol, collumn, startingRow, row)
+                    print(startingCol is not collumn) and (startingRow is not row)
+                    if (startingCol is not collumn) and (startingRow is not row):
+                        valids.append([startingCol, startingRow])
+
             except IndexError:
+                print("IndexError")
                 pass
     print(valids)
+
+def checkInThatDirection(col, row, originalCol, originalRow):
+    x_offset = originalCol - col
+    y_offset = originalRow - row
+
 
 def checkWinner():
     for row in grid:
@@ -142,8 +158,10 @@ def place(row, collumn, player):
     """"""
     grid[row][collumn] = player
 
+
 putCounter(0, 1)
 putCounter(1, 1)
 putCounter(2, 1)
-checkSurroundings(13, 1, 1)
+checkSurroundings(11, 1, 1)
+print(grid[11][0])
 printGrid()
