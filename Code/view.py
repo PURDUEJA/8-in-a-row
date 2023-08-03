@@ -6,7 +6,7 @@ pygame.init()
 SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Ultimate Connect")
 
-BG = pygame.image.load("../assets/Background.png")
+BG = pygame.image.load("../assets/tempBG_blur.jpg")
 
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
@@ -23,7 +23,7 @@ def play():
 
         SCREEN.fill("black")
 
-        PLAY_TEXT = get_font(45).render("This is the PLAY screen.", True, "White")
+        PLAY_TEXT = get_font(45).render("Game will go here.", True, "White")
         PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
         SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
@@ -80,7 +80,7 @@ def main_menu():
         # Gets position of the mouse
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font(100).render("Ultimate Connect", True, "#b68f40")
+        MENU_TEXT = get_font(100).render("Ultimate Connect", True, "#FFFFFF")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
 
