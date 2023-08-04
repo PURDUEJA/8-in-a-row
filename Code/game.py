@@ -142,17 +142,58 @@ def checkSurroundings(collumn, row, player):
                 pass
     print(valids)
 
+def checkDiagonally(row, col, player, checkNumber):
+    rows = len(grid)
+    cols = len(grid[0])
+
+    # Check if there are 4 spaces diagonally bottom-right.
+    if row > rows - checkNumber or col > cols - checkNumber:
+        return False
+
+    # Check the four diagonal squares in the bottom-right direction
+    # and return the result.
+    return all(grid[row+i][col+i] == player for i in range(checkNumber))
+
+def checkInRow(row, col, player, checkNumber):
+    rows = len(grid)
+    cols = len(grid[0])
+
+    # Check if there are 4 rows to the right of the chosen.
+    if row > rows - checkNumber:
+        return False
+
+    # Check the next 4 in a row and return the result.
+    return all(grid[row][col+i] == player for i in range(checkNumber))
+
+
+def checkUnderneath(row, col, player, checkNumber):
+    rows = len(grid)
+    cols = len(grid[0])
+
+    # Check if there are 4 spaces underneath the chosen spot.
+    if col > cols - checkNumber:
+        return False
+
+    # Check the next 4 underneath and return the result.
+    return all(grid[row + i][col] == player for i in range(checkNumber))
+
+
 def checkInThatDirection(col, row, originalCol, originalRow):
     x_offset = originalCol - col
     y_offset = originalRow - row
 
 
-def checkWinner():
-    for row in grid:
-        for collumn in grid:
-            if collumn != 0:
-                pass
-
+def checkWinner(checkNumber):
+    winnerFound = 0
+    while winnerFound is 0:
+        for row in grid:
+            for col in grid:
+                players = [1, 2]
+                for player in players:
+                    winnerFound = player if checkInRow(row, col, player, checkNumber) else 0
+                    winnerFound = player if checkDiagonally(row, col, player, checkNumber) else 0
+                    winnerFound = player if checkUnderneath(row, col, player, checkNumber) else 0
+    return winnerFound
 
 def place(row, collumn, player):
     """"""
