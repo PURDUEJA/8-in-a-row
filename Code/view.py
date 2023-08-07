@@ -4,12 +4,13 @@ from Button import Button
 pygame.init()
 
 # Sets window settings resolution and title.
-SCREEN = pygame.display.set_mode((1280, 720))
+current_resolution = (1280, 720)
+SCREEN = pygame.display.set_mode(current_resolution)
 pygame.display.set_caption("Ultimate Connect")
 
 # Background image
 BG = pygame.image.load("../assets/tempBG_1280x720.png")
-BOARD = pygame.image.load("../assets/board.png")
+BOARD8X7 = pygame.image.load("../assets/Board8x7.drawio.png")
 DEFAULT_IMAGE_SIZE = (1280, 720)
 
 
@@ -24,14 +25,17 @@ def game():
         GAME_MOUSE_POS = pygame.mouse.get_pos()
 
         # Fills background white.
-        board = pygame.transform.scale(BOARD, DEFAULT_IMAGE_SIZE)
-        SCREEN.fill("white")
-        SCREEN.blit(board, (0, 0))
+        """Stretch image.
+        board = pygame.transform.scale(BOARD8X7, DEFAULT_IMAGE_SIZE)
+        SCREEN.fill("white")"""
+        new_resolution = (811, 711)
+        SCREEN = pygame.display.set_mode(new_resolution)
+        current_resolution = new_resolution
+        SCREEN.blit(BOARD8X7, (0, 0))
 
         # Return to main menu.
         TEMP_BACK = Button(image=None, pos=(640, 460),
                            text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
-
         TEMP_BACK.changeColor(GAME_MOUSE_POS)
         TEMP_BACK.update(SCREEN)
 
