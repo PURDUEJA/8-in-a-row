@@ -5,6 +5,7 @@ Start date: Thursday 20th July
 """
 import pygame
 import sys
+import time
 
 # Intializes pygame
 pygame.init()
@@ -171,7 +172,7 @@ def checkUnderneath(row, col, player, checkNumber):
     cols = len(grid[0])
 
     # Check if there are 4 spaces underneath the chosen spot.
-    if col > cols - checkNumber:
+    if row > rows - checkNumber:
         return False
 
     # Check the next 4 underneath and return the result.
@@ -185,14 +186,23 @@ def checkInThatDirection(col, row, originalCol, originalRow):
 
 def checkWinner(checkNumber):
     winnerFound = 0
-    while winnerFound is 0:
-        for row in grid:
-            for col in grid:
+    totaltimes = 0
+    winnerFoundBool = False
+    while winnerFoundBool == False:
+        for row in range(len(grid)):
+            for col in range(len(grid[row])):
+                totaltimes += 1
                 players = [1, 2]
                 for player in players:
-                    winnerFound = player if checkInRow(row, col, player, checkNumber) else 0
-                    winnerFound = player if checkDiagonally(row, col, player, checkNumber) else 0
-                    winnerFound = player if checkUnderneath(row, col, player, checkNumber) else 0
+                    if grid[row][col] != 0:
+                        # Check diagonally, horizontally, and vertically.
+                        winnerFound = player if checkInRow(row, col, player, checkNumber) else 0
+                        winnerFoundBool = True if (winnerFound != 0) else 0
+                        winnerFound = player if checkDiagonally(row, col, player, checkNumber) else 0
+                        winnerFoundBool = True if (winnerFound != 0) else 0
+                        winnerFound = player if checkUnderneath(row, col, player, checkNumber) else 0
+                        winnerFoundBool = True if (winnerFound != 0) else 0
+        return winnerFound
     return winnerFound
 
 def place(row, collumn, player):
@@ -203,6 +213,14 @@ def place(row, collumn, player):
 putCounter(0, 1)
 putCounter(1, 1)
 putCounter(2, 1)
-checkSurroundings(11, 1, 1)
+putCounter(0, 1)
+putCounter(0, 1)
+putCounter(0, 1)
+putCounter(2, 1)
+putCounter(3, 1)
+putCounter(1, 1)
+putCounter(1, 1)
+# checkSurroundings(11, 1, 1)
 print(grid[11][0])
 printGrid()
+print(checkWinner(4))

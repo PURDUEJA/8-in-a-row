@@ -9,6 +9,7 @@ pygame.display.set_caption("Ultimate Connect")
 
 # Background image
 BG = pygame.image.load("../assets/tempBG_1280x720.png")
+BOARD = pygame.image.load("../assets/board.png")
 
 
 def get_font(size):  # Returns font in the desired size
@@ -16,19 +17,44 @@ def get_font(size):  # Returns font in the desired size
     return pygame.font.Font("../assets/DiloWorld-mLJLv.ttf", size)
 
 
+def game():
+    """Plays the game itself"""
+    GAME_MOUSE_POS = pygame.mouse.get_pos()
 
+    # Fills background white.
+    SCREEN.fill("white")
+    SCREEN.blit(BOARD, (0, 0))
+
+    # Return to main menu.
+    TEMP_BACK = Button(image=None, pos=(640, 460),
+                       text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
+
+    TEMP_BACK.changeColor(GAME_MOUSE_POS)
+    TEMP_BACK.update(SCREEN)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if TEMP_BACK.checkForInput(GAME_MOUSE_POS):
+                main_menu()
+
+    pygame.display.update()
 
 def play():
-    """Starts the game when clicked."""
+    """Puts user into the start game menu"""
     while True:
+
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
         # Fills screen with black to place anything over.
         SCREEN.fill("black")
 
         # Main header text.
-        PLAY_TEXT = get_font(45).render("Game will go here.", True, "White")
-        PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
+        PLAY_TEXT = get_font(45).render("Game Setup.", True, "White")
+        PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 60))
         SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
         # Return to main menu.
@@ -38,6 +64,13 @@ def play():
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
 
+        # Continue to game
+        START_GAME = Button(image=None, pos=(640, 160),
+                            text_input="Start game", font=get_font(75), base_color="White", hovering_color="Green")
+
+        # Highlights options text while mouse hovers
+        START_GAME.changeColor(PLAY_MOUSE_POS)
+        START_GAME.update(SCREEN)
 
 
         for event in pygame.event.get():
@@ -47,6 +80,9 @@ def play():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
                     main_menu()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if START_GAME.checkForInput(PLAY_MOUSE_POS):
+                    game()
 
         pygame.display.update()
 
