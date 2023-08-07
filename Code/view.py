@@ -10,6 +10,7 @@ pygame.display.set_caption("Ultimate Connect")
 # Background image
 BG = pygame.image.load("../assets/tempBG_1280x720.png")
 BOARD = pygame.image.load("../assets/board.png")
+DEFAULT_IMAGE_SIZE = (1280, 720)
 
 
 def get_font(size):  # Returns font in the desired size
@@ -19,29 +20,31 @@ def get_font(size):  # Returns font in the desired size
 
 def game():
     """Plays the game itself"""
-    GAME_MOUSE_POS = pygame.mouse.get_pos()
+    while True:
+        GAME_MOUSE_POS = pygame.mouse.get_pos()
 
-    # Fills background white.
-    SCREEN.fill("white")
-    SCREEN.blit(BOARD, (0, 0))
+        # Fills background white.
+        board = pygame.transform.scale(BOARD, DEFAULT_IMAGE_SIZE)
+        SCREEN.fill("white")
+        SCREEN.blit(board, (0, 0))
 
-    # Return to main menu.
-    TEMP_BACK = Button(image=None, pos=(640, 460),
-                       text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
+        # Return to main menu.
+        TEMP_BACK = Button(image=None, pos=(640, 460),
+                           text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
 
-    TEMP_BACK.changeColor(GAME_MOUSE_POS)
-    TEMP_BACK.update(SCREEN)
+        TEMP_BACK.changeColor(GAME_MOUSE_POS)
+        TEMP_BACK.update(SCREEN)
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if TEMP_BACK.checkForInput(GAME_MOUSE_POS):
-                main_menu()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if TEMP_BACK.checkForInput(GAME_MOUSE_POS):
+                    main_menu()
 
-    pygame.display.update()
+        pygame.display.update()
 
 def play():
     """Puts user into the start game menu"""

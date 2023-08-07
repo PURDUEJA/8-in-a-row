@@ -143,6 +143,25 @@ def checkSurroundings(collumn, row, player):
                 pass
     print(valids)
 
+
+def checkDiagonallyOpposite(row, col, player, checkNumber):
+    rows = len(grid)
+    cols = len(grid[0])
+
+    # Check if there are 4 spaces diagonally bottom-right.
+    # Row = 4
+    # Max = 14
+    # Check Number = 4
+    # if max - row (10) <= (10) max - checkNumber:
+    #   run
+    if row > rows - checkNumber or col > cols - checkNumber:
+        return False
+
+    # Check the four diagonal squares in the bottom-right direction
+    # and return the result.
+    return all(grid[row+i][col+i] == player for i in range(checkNumber))
+
+
 def checkDiagonally(row, col, player, checkNumber):
     rows = len(grid)
     cols = len(grid[0])
@@ -155,15 +174,20 @@ def checkDiagonally(row, col, player, checkNumber):
     # and return the result.
     return all(grid[row+i][col+i] == player for i in range(checkNumber))
 
+
 def checkInRow(row, col, player, checkNumber):
     rows = len(grid)
     cols = len(grid[0])
-
     # Check if there are 4 rows to the right of the chosen.
-    if row > rows - checkNumber:
+    if col > cols - checkNumber:
         return False
 
     # Check the next 4 in a row and return the result.
+    # print("asdf")
+    # print(grid[row][col])
+    # for i in range(checkNumber):
+        # print(grid[row][col + i], row, (col + i))
+    # print(all(grid[row][col+i] == player for i in range(checkNumber)))
     return all(grid[row][col+i] == player for i in range(checkNumber))
 
 
@@ -196,12 +220,18 @@ def checkWinner(checkNumber):
                 for player in players:
                     if grid[row][col] != 0:
                         # Check diagonally, horizontally, and vertically.
-                        winnerFound = player if checkInRow(row, col, player, checkNumber) else 0
-                        winnerFoundBool = True if (winnerFound != 0) else 0
-                        winnerFound = player if checkDiagonally(row, col, player, checkNumber) else 0
-                        winnerFoundBool = True if (winnerFound != 0) else 0
-                        winnerFound = player if checkUnderneath(row, col, player, checkNumber) else 0
-                        winnerFoundBool = True if (winnerFound != 0) else 0
+                        if (player if checkInRow(row, col, player, checkNumber) else 0):
+                            return player
+
+                        # winnerFoundBool = True if (winnerFound != 0) else 0
+
+                        if (player if checkDiagonally(row, col, player, checkNumber) else 0):
+                            return player
+
+                        # winnerFoundBool = True if (winnerFound != 0) else 0
+                        if (player if checkUnderneath(row, col, player, checkNumber) else 0):
+                            return player
+                        # winnerFoundBool = True if (winnerFound != 0) else 0
         return winnerFound
     return winnerFound
 
@@ -210,17 +240,17 @@ def place(row, collumn, player):
     grid[row][collumn] = player
 
 
-putCounter(0, 1)
+# putCounter(0, 1)
 putCounter(1, 1)
 putCounter(2, 1)
 putCounter(0, 1)
 putCounter(0, 1)
 putCounter(0, 1)
 putCounter(2, 1)
-putCounter(3, 1)
+# putCounter(3, 1)
 putCounter(1, 1)
 putCounter(1, 1)
 # checkSurroundings(11, 1, 1)
 print(grid[11][0])
 printGrid()
-print(checkWinner(4))
+print("Winner Found" if checkWinner(4) else "Nothing Found")
