@@ -11,7 +11,10 @@ pygame.display.set_caption("Ultimate Connect")
 # Background image
 BG = pygame.image.load("../assets/tempBG_1280x720.png")
 BOARD8X7 = pygame.image.load("../assets/Board8x7.drawio.png")
-DEFAULT_IMAGE_SIZE = (1280, 720)
+BOARD9X8 = pygame.image.load("../assets/Board9x8.drawio.png")
+BOARD10X9 = pygame.image.load("../assets/Board10x9.drawio.png")
+BOARD11X10 = pygame.image.load("../assets/Board11x10.drawio.png")
+DEFAULT_IMAGE_SIZE = (911, 811)
 
 
 def get_font(size):  # Returns font in the desired size
@@ -19,19 +22,20 @@ def get_font(size):  # Returns font in the desired size
     return pygame.font.Font("../assets/DiloWorld-mLJLv.ttf", size)
 
 
-def game():
+def board():
+    # Change resolution
+    new_resolution = (911, 811)
+    SCREEN = pygame.display.set_mode(new_resolution)
+    current_resolution = new_resolution
+
+def game(board):
     """Plays the game itself"""
+    if board == none:
+        play()
     while True:
         GAME_MOUSE_POS = pygame.mouse.get_pos()
 
-        # Fills background white.
-        """Stretch image.
-        board = pygame.transform.scale(BOARD8X7, DEFAULT_IMAGE_SIZE)
-        SCREEN.fill("white")"""
-        new_resolution = (811, 711)
-        SCREEN = pygame.display.set_mode(new_resolution)
-        current_resolution = new_resolution
-        SCREEN.blit(BOARD8X7, (0, 0))
+        SCREEN.blit(board, (0, 0))
 
         # Return to main menu.
         TEMP_BACK = Button(image=None, pos=(640, 460),
@@ -79,6 +83,12 @@ def play():
         START_GAME.changeColor(PLAY_MOUSE_POS)
         START_GAME.update(SCREEN)
 
+        # Select board size
+        size_but = Button(image=None, pos=(640, 360),
+                          text_input="Choose Board Size", font=get_font(75), base_color="White", hovering_color="Green")
+        size_but.changeColor(PLAY_MOUSE_POS)
+        size_but.update(SCREEN)
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -90,6 +100,75 @@ def play():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if START_GAME.checkForInput(PLAY_MOUSE_POS):
                     game()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if size_but.checkForInput(PLAY_MOUSE_POS):
+                    board_size()
+
+        pygame.display.update()
+
+def board_size():
+    while True:
+        # Gets mouse position
+        BOARD_MOUSE_POS = pygame.mouse.get_pos()
+
+        SCREEN.fill("white")
+
+        # Main header text.
+        BOARD_TEXT = get_font(45).render("Select a board size.", True, "Black")
+        BOARD_RECT = BOARD_TEXT.get_rect(center=(640, 60))
+        SCREEN.blit(BOARD_TEXT, BOARD_RECT)
+
+        # Button to return to play from board.
+        BOARD_BACK = Button(image=None, pos=(640, 460),
+                              text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+
+        # Highlights options text while mouse hovers
+        BOARD_BACK.changeColor(BOARD_MOUSE_POS)
+        BOARD_BACK.update(SCREEN)
+
+        # Button to return to main menu from options.
+        eight_by_seven = Button(image=None, pos=(640, 160),
+                              text_input="8x7", font=get_font(75), base_color="Black", hovering_color="Green")
+
+        # Highlights text while mouse hovers
+        eight_by_seven.changeColor(BOARD_MOUSE_POS)
+        eight_by_seven.update(SCREEN)
+
+        # Button to return to main menu from options.
+        nine_by_eight = Button(image=None, pos=(640, 260),
+                                text_input="9x8", font=get_font(75), base_color="Black", hovering_color="Green")
+
+        # Highlights text while mouse hovers
+        nine_by_eight.changeColor(BOARD_MOUSE_POS)
+        nine_by_eight.update(SCREEN)
+
+        # Button to return to main menu from options.
+        ten_by_nine = Button(image=None, pos=(640, 360),
+                               text_input="10x9", font=get_font(75), base_color="Black", hovering_color="Green")
+
+        # Highlights text while mouse hovers
+        ten_by_nine.changeColor(BOARD_MOUSE_POS)
+        ten_by_nine.update(SCREEN)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if BOARD_BACK.checkForInput(BOARD_MOUSE_POS):
+                    play()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if eight_by_seven.checkForInput(BOARD_MOUSE_POS):
+                    board = BOARD8X7
+                    return board
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if nine_by_eight.checkForInput(BOARD_MOUSE_POS):
+                    board = BOARD9X8
+                    return board
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if ten_by_nine.checkForInput(BOARD_MOUSE_POS):
+                    board = BOARD10X9
+                    return board
 
         pygame.display.update()
 
@@ -128,6 +207,8 @@ def options():
 
 def main_menu():
     """Main menu for the game."""
+    new_resolution = (1280, 720)
+    SCREEN = pygame.display.set_mode(new_resolution)
     while True:
         SCREEN.blit(BG, (0, 0))
 
