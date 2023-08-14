@@ -18,7 +18,7 @@ boards = []
 resolutions = [(811, 711), (911, 811), (1011, 911), (1111, 1011)]
 board = int
 boards.extend([BOARD8X7, BOARD9X8, BOARD10X9, BOARD11X10])
-print(boards)
+
 
 def get_font(size):  # Returns font in the desired size
 
