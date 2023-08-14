@@ -16,7 +16,7 @@ BOARD10X9 = pygame.image.load("../assets/Board10x9.drawio.png")
 BOARD11X10 = pygame.image.load("../assets/Board11x10.drawio.png")
 resolutions = [(811, 711), (911, 811), (1011, 911), (1111, 1011)]
 board = int
-b_res = int
+
 
 def get_font(size):  # Returns font in the desired size
 
@@ -25,18 +25,19 @@ def get_font(size):  # Returns font in the desired size
 
 def res_change(b_res):
     # Change resolution
+    print(b_res)
     new_resolution = resolutions[b_res]
     SCREEN = pygame.display.set_mode(new_resolution)
     current_resolution = new_resolution
 
 def game(board):
     """Plays the game itself"""
-    if board == None:
-        play()
+    if board is None:
+        board, b_res = board_size()
     else:
+        b_res = board_size()[1]
         res_change(b_res)
         while True:
-            print(type(BOARD9X8))
             GAME_MOUSE_POS = pygame.mouse.get_pos()
             SCREEN.fill("black")
             SCREEN.blit(BOARD9X8, (0, 0))
@@ -87,12 +88,6 @@ def play():
         START_GAME.changeColor(PLAY_MOUSE_POS)
         START_GAME.update(SCREEN)
 
-        # Select board size
-        size_but = Button(image=None, pos=(640, 360),
-                          text_input="Choose Board Size", font=get_font(75), base_color="White", hovering_color="Green")
-        size_but.changeColor(PLAY_MOUSE_POS)
-        size_but.update(SCREEN)
-
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -103,10 +98,7 @@ def play():
                     main_menu()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if START_GAME.checkForInput(PLAY_MOUSE_POS):
-                    game(board)
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if size_but.checkForInput(PLAY_MOUSE_POS):
-                    board_size()
+                    game(board, b_res)
 
         pygame.display.update()
 
@@ -159,9 +151,6 @@ def board_size():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if BOARD_BACK.checkForInput(BOARD_MOUSE_POS):
-                    play()
-            if event.type == pygame.MOUSEBUTTONDOWN:
                 if eight_by_seven.checkForInput(BOARD_MOUSE_POS):
                     board = BOARD8X7
                     b_res = 0
@@ -204,6 +193,12 @@ def options():
         OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
         OPTIONS_BACK.update(SCREEN)
 
+        # Select board size
+        size_but = Button(image=None, pos=(640, 360),
+                          text_input="Choose Board Size", font=get_font(75), base_color="Black", hovering_color="Green")
+        size_but.changeColor(OPTIONS_MOUSE_POS)
+        size_but.update(SCREEN)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -211,6 +206,9 @@ def options():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
                     main_menu()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if size_but.checkForInput(OPTIONS_MOUSE_POS):
+                    board_size()
 
         pygame.display.update()
 
