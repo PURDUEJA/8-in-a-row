@@ -145,6 +145,7 @@ def game(board):
         pygame.display.update()
 
 def board_size():
+    """Menu for users to select board size."""
     while True:
         # Gets mouse position
         BOARD_MOUSE_POS = pygame.mouse.get_pos()
@@ -222,14 +223,14 @@ def board_size():
         pygame.display.update()
 
 def res_change(b_res):
-    # Change resolution
+    """Change resolution."""
     new_resolution = resolutions[b_res]
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     current_resolution = new_resolution
 
 
 def options():
-    """Allows the user to change some settings."""
+    """Allows the user to change some settings, such as colourblindness."""
     while True:
         # Gets mouse position
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
