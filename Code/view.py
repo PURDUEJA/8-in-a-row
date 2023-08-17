@@ -5,7 +5,7 @@ pygame.init()
 
 # Sets window settings resolution and title.
 current_resolution = (1280, 720)
-SCREEN = pygame.display.set_mode(current_resolution)
+SCREEN = pygame.display.set_mode(current_resolution, pygame.RESIZABLE)
 pygame.display.set_caption("Ultimate Connect")
 
 # Background image
@@ -15,7 +15,8 @@ BOARD9X8 = pygame.image.load("../assets/Board9x8.drawio.png")
 BOARD10X9 = pygame.image.load("../assets/Board10x9.drawio.png")
 BOARD11X10 = pygame.image.load("../assets/Board11x10.drawio.png")
 boards = []
-resolutions = [(811, 711), (911, 811), (1011, 911), (1111, 1011)]
+resolutions = [(811, 811), (911, 911), (1011, 1011), (1111, 1111)]
+back_locations = [(405, 761), (455, 861), (505, 961), (555, 1061)]
 board = int
 boards.extend([BOARD8X7, BOARD9X8, BOARD10X9, BOARD11X10])
 
@@ -27,7 +28,7 @@ def get_font(size):  # Returns font in the desired size
 def main_menu():
     """Main menu for the game."""
     new_resolution = (1280, 720)
-    SCREEN = pygame.display.set_mode(new_resolution)
+    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     while True:
         SCREEN.blit(BG, (0, 0))
 
@@ -127,7 +128,7 @@ def game(board):
         SCREEN.blit(board, (0, 0))
 
         # Return to main menu.
-        TEMP_BACK = Button(image=None, pos=(640, 460),
+        TEMP_BACK = Button(image=None, pos=(back_locations[b_res]),
                            text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
         TEMP_BACK.changeColor(GAME_MOUSE_POS)
         TEMP_BACK.update(SCREEN)
@@ -223,7 +224,7 @@ def board_size():
 def res_change(b_res):
     # Change resolution
     new_resolution = resolutions[b_res]
-    SCREEN = pygame.display.set_mode(new_resolution)
+    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     current_resolution = new_resolution
 
 
