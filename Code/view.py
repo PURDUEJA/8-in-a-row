@@ -15,8 +15,7 @@ BOARD9X8 = pygame.image.load("../assets/Board9x8.drawio.png")
 BOARD10X9 = pygame.image.load("../assets/Board10x9.drawio.png")
 BOARD11X10 = pygame.image.load("../assets/Board11x10.drawio.png")
 boards = []
-resolutions = [(811, 811), (911, 911), (1011, 1011), (1111, 1111)]
-back_locations = [(405, 761), (455, 861), (505, 961), (555, 1061)]
+resolutions = [(811, 811), (811, 811), (811, 811), (811, 811)]
 board = int
 boards.extend([BOARD8X7, BOARD9X8, BOARD10X9, BOARD11X10])
 
@@ -120,7 +119,7 @@ def play():
 def game(board):
     """Plays the game itself"""
     b_res = board_size()
-    board = boards[b_res]
+    board = pygame.transform.smoothscale(boards[b_res], (811, 711))
     res_change(b_res)
     while True:
         GAME_MOUSE_POS = pygame.mouse.get_pos()
@@ -128,7 +127,7 @@ def game(board):
         SCREEN.blit(board, (0, 0))
 
         # Return to main menu.
-        TEMP_BACK = Button(image=None, pos=(back_locations[b_res]),
+        TEMP_BACK = Button(image=None, pos=(405, 761),
                            text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
         TEMP_BACK.changeColor(GAME_MOUSE_POS)
         TEMP_BACK.update(SCREEN)
