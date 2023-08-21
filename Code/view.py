@@ -156,14 +156,6 @@ def board_size():
         BOARD_RECT = BOARD_TEXT.get_rect(center=(640, 60))
         SCREEN.blit(BOARD_TEXT, BOARD_RECT)
 
-        # Button to return to play from board.
-        BOARD_BACK = Button(image=None, pos=(640, 560),
-                              text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
-
-        # Highlights options text while mouse hovers
-        BOARD_BACK.changeColor(BOARD_MOUSE_POS)
-        BOARD_BACK.update(SCREEN)
-
         # Button to return to main menu from options.
         eight_by_seven = Button(image=None, pos=(640, 160),
                               text_input="8x7", font=get_font(75), base_color="Black", hovering_color="Green")
