@@ -444,13 +444,18 @@ def game(board):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if TEMP_BACK.checkForInput(GAME_MOUSE_POS):
                     main_menu()
+
             if event.type == pygame.MOUSEMOTION:
-                print(RED, BLUE, board)
+                pygame.draw.rect(SCREEN, "black", (0, 0, width, SQUARESIZE))
                 posx = event.pos[0]
                 if turn == 0:
                     SCREEN.blit(RED, (posx, int(SQUARESIZE / 2)))
                 else:
                     SCREEN.blit(BLUE, (posx, int(SQUARESIZE / 2)))
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pass
+                # player 1 and 2 input for placing counter.
 
         pygame.display.update()
 
