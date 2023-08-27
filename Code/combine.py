@@ -3,7 +3,7 @@ Ultimate Connect.
 Creators: Jacob Purdue and Nick Kho
 Start date: Thursday 20th July
 """
-import pygame
+import pygame, sys
 from Button import Button
 grid = []
 
@@ -301,26 +301,24 @@ current_resolution = (1280, 720)
 SCREEN = pygame.display.set_mode(current_resolution, pygame.RESIZABLE)
 pygame.display.set_caption("Ultimate Connect")
 
-# Background image
+# Background image for menu
 BG = pygame.image.load("../assets/tempBG_1280x720.png")
 # Board
 BOARD8X7 = pygame.image.load("../assets/Board8x7.drawio.png")
 # Counters
 BLUE = pygame.image.load("../assets/CounterBlue.png")
 RED = pygame.image.load("../assets/CounterRed.png")
-# Resoltuion
-resolution = (811, 811)
 board = int
-# Set
+# Set stuff to get counter hover placement working.
 ROW_COUNT = 7
 COLUMN_COUNT = 8
 SQUARESIZE = 100
-RADIUS = int(SQUARESIZE / 2 - 5)
 width = COLUMN_COUNT * SQUARESIZE
 height = (ROW_COUNT + 1) * SQUARESIZE
+size = (width, height)
+# TURN IS TEMPORARY CUZ DONT HAVE ACTUAL CODE WORKING -----------------------
 turn = 0
 
-size = (width, height)
 
 def get_font(size):  # Returns font in the desired size
 
