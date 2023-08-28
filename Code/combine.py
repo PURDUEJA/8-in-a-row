@@ -515,4 +515,3 @@ def options():
         pygame.display.update()
 
 main_menu()
-
