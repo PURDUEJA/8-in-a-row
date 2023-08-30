@@ -20,11 +20,13 @@ BOARDTEST = pygame.image.load("../assets/BOARDTEST.png")
 BOARDTEST2 = pygame.image.load("../assets/BOARDTEST2.png")
 # Counters
 blue = pygame.image.load("../assets/CounterBlue.png")
+yellow = pygame.image.load("../assets/CounterYellow.png")
 red = pygame.image.load("../assets/CounterRed.png")
 boards = []
 resolutions = [(811, 811), (811, 811), (811, 811), (811, 811)]
 board = int
 boards.extend([BOARD8X7, BOARD9X8, BOARD10X9, BOARD11X10])
+
 
 
 
@@ -41,7 +43,7 @@ COLUMN_COUNT = 8
 game_over = False
 turn = 0
 
-SQUARESIZE = 93.8
+SQUARESIZE = 100
 
 width = COLUMN_COUNT * SQUARESIZE
 height = (ROW_COUNT + 1) * SQUARESIZE
@@ -71,17 +73,6 @@ def get_next_open_row(board, col):
 
 def print_board(board):
     print(np.flip(board, 0))
-
-def draw_board(board):
-    for c in range(COLUMN_COUNT):
-        for r in range(ROW_COUNT):
-            if board[r][c] == 1:
-                SCREEN.blit(red, (
-                int(c * SQUARESIZE + SQUARESIZE / 2), height - 3 - int(r * SQUARESIZE + SQUARESIZE / 2)))
-            elif board[r][c] == 2:
-                SCREEN.blit(blue, (
-                    int(c * SQUARESIZE + SQUARESIZE / 2), height - 3 - int(r * SQUARESIZE + SQUARESIZE / 2)))
-    pygame.display.update()
 
 
 def winning_move(board, piece):
@@ -113,6 +104,31 @@ def winning_move(board, piece):
                 c + 3] == piece:
                 return True
 
+
+def draw_board(board):
+    for c in range(COLUMN_COUNT):
+        for r in range(ROW_COUNT):
+            pygame.draw.rect(SCREEN, "gray", (c * SQUARESIZE, r * SQUARESIZE + SQUARESIZE, SQUARESIZE, SQUARESIZE))
+            pygame.draw.circle(SCREEN, BLACK, (
+            int(c * SQUARESIZE + SQUARESIZE / 2), int(r * SQUARESIZE + SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+
+    for c in range(COLUMN_COUNT):
+        for r in range(ROW_COUNT):
+            if board[r][c] == 1:
+                pygame.draw.circle(SCREEN, RED, (
+                    int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+                pygame.draw.circle(SCREEN, BLACK, (
+                    int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), (RADIUS - 5))
+                pygame.draw.circle(SCREEN, RED, (
+                    int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), (RADIUS - 7))
+            elif board[r][c] == 2:
+                pygame.draw.circle(SCREEN, YELLOW, (
+                    int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+                pygame.draw.circle(SCREEN, BLACK, (
+                    int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), (RADIUS - 5))
+                pygame.draw.circle(SCREEN, YELLOW, (
+                    int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), (RADIUS - 7))
+    pygame.display.update()
 
 
 def get_font(size):  # Returns font in the desired size
@@ -236,15 +252,16 @@ turn = 0
 
 def game(board, turn, game_over):
     """Plays the game itself"""
-    new_resolution = (811, 911)
+    new_resolution = (811, 811)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     current_resolution = new_resolution
     board = create_board()
     print_board(board)
-    SCREEN.blit(BOARDTEST, (0, 150))
+
 
     while True:
         GAME_MOUSE_POS = pygame.mouse.get_pos()
+        draw_board(board)
 
         # Return to main menu.
         TEMP_BACK = Button(image=None, pos=(405, 861),
@@ -258,11 +275,12 @@ def game(board, turn, game_over):
                 sys.exit()
 
             if event.type == pygame.MOUSEMOTION:
+                pygame.draw.rect(SCREEN, BLACK, (0, 0, width, SQUARESIZE))
                 posx = event.pos[0]
                 if turn == 0:
                     SCREEN.blit(red, (posx, int(SQUARESIZE / 2)))
                 else:
-                    SCREEN.blit(blue, (posx, int(SQUARESIZE / 2)))
+                    SCREEN.blit(yellow, (posx, int(SQUARESIZE / 2)))
 
 
             if event.type == pygame.MOUSEBUTTONDOWN:
