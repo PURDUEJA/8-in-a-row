@@ -8,8 +8,8 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 
-ROW_COUNT = 7
-COLUMN_COUNT = 8
+ROW_COUNT = 6
+COLUMN_COUNT = 7
 
 
 def create_board():
@@ -118,7 +118,6 @@ while not game_over:
                 pygame.draw.circle(screen, RED, (posx, int(SQUARESIZE / 2)), RADIUS)
             else:
                 pygame.draw.circle(screen, YELLOW, (posx, int(SQUARESIZE / 2)), RADIUS)
-
         pygame.display.update()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
