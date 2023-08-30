@@ -258,22 +258,15 @@ def game(board, turn, game_over):
                 sys.exit()
 
             if event.type == pygame.MOUSEMOTION:
-                pygame.draw.rect(SCREEN, "black", (0, 0, width, SQUARESIZE))
                 posx = event.pos[0]
                 if turn == 0:
                     SCREEN.blit(red, (posx, int(SQUARESIZE / 2)))
                 else:
                     SCREEN.blit(blue, (posx, int(SQUARESIZE / 2)))
 
-                pygame.draw.rect(SCREEN, "black", (0, 0, width, SQUARESIZE))
-                posx = event.pos[0]
-                if turn == 0:
-                    SCREEN.blit(red, (posx, int(SQUARESIZE / 2)))
-                else:
-                    SCREEN.blit(blue, (posx, int(SQUARESIZE / 2)))
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                pygame.draw.rect(SCREEN, BLACK, (0, 0, width, SQUARESIZE))
+
                 # print(event.pos)
                 # Ask for Player 1 Input
                 if turn == 0:

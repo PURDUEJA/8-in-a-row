@@ -451,13 +451,6 @@ def game(board):
                 else:
                     SCREEN.blit(BLUE, (posx, int(SQUARESIZE / 2)))
 
-            pygame.draw.rect(SCREEN, "black", (0, 0, width, SQUARESIZE))
-            posx = event.pos[0]
-            if turn == 0:
-                SCREEN.blit(RED, (posx, int(SQUARESIZE / 2)))
-            else:
-                SCREEN.blit(BLUE, (posx, int(SQUARESIZE / 2)))
-
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # When user clicks to place counter
 
