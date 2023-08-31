@@ -323,10 +323,9 @@ def game(board, turn, game_over):
     board = create_board()
     print_board(board)
 
-
-    while True:
-        GAME_MOUSE_POS = pygame.mouse.get_pos()
+    while not game_over:
         draw_board(board)
+        GAME_MOUSE_POS = pygame.mouse.get_pos()
 
         # Return to main menu.
         TEMP_BACK = Button(image=None, pos=(405, 861),
@@ -373,7 +372,6 @@ def game(board, turn, game_over):
                             game_over = True
                             one_winner()
 
-
                 # # Ask for Player 2 Input
                 else:
                     posx = event.pos[0]
@@ -387,14 +385,11 @@ def game(board, turn, game_over):
                             game_over = True
                             two_winner()
 
-                print_board(board)
-                draw_board(board)
-
                 turn += 1
                 turn = turn % 2
 
                 if game_over:
-                    pygame.time.wait(3000)
+                    pass
 
         pygame.display.update()
 
