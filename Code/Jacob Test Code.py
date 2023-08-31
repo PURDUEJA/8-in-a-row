@@ -181,23 +181,75 @@ def main_menu():
 
         pygame.display.update()
 
-def winner_menu():
+def one_winner():
     """Winner screen."""
     new_resolution = (1280, 720)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    SCREEN.fill("red")
     while True:
         # Gets position of the mouse
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        WIN_MOUSE_POS = pygame.mouse.get_pos()
 
-        WIN_TEXT = get_font(100).render("Player won", True, "#FFFFFF")
+        WIN_TEXT = get_font(100).render("Red Won!", True, "#FFFFFF")
         WIN_RECT = WIN_TEXT.get_rect(center=(640, 100))
 
         # Return to main menu.
-        WIN_BACK = Button(image=None, pos=(640, 460),
-                           text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
+        WIN_BACK = Button(image=None, pos=(640, 660),
+                           text_input="BACK", font=get_font(75), base_color="White", hovering_color="Black")
 
-        WIN_BACK.changeColor(MENU_MOUSE_POS)
+        WIN_BACK.changeColor(WIN_MOUSE_POS)
         WIN_BACK.update(SCREEN)
+
+        SCREEN.blit(WIN_TEXT, WIN_RECT)
+
+        # Return to main menu.
+        WIN_AGAIN = Button(image=None, pos=(640, 330),
+                           text_input="Play Again", font=get_font(75), base_color="White", hovering_color="Black")
+
+        WIN_AGAIN.changeColor(WIN_MOUSE_POS)
+        WIN_AGAIN.update(SCREEN)
+
+        # Runs button when clicked.
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if WIN_BACK.checkForInput(WIN_MOUSE_POS):
+                    main_menu()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
+                    game(board, turn, game_over)
+
+        pygame.display.update()
+
+def two_winner():
+    """Winner screen."""
+    new_resolution = (1280, 720)
+    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    SCREEN.fill("blue")
+    while True:
+        # Gets position of the mouse
+        WIN_MOUSE_POS = pygame.mouse.get_pos()
+
+        WIN_TEXT = get_font(100).render("Blue Won!", True, "#FFFFFF")
+        WIN_RECT = WIN_TEXT.get_rect(center=(640, 100))
+
+        # Return to main menu.
+        WIN_BACK = Button(image=None, pos=(640, 660),
+                           text_input="BACK", font=get_font(75), base_color="White", hovering_color="Black")
+
+        WIN_BACK.changeColor(WIN_MOUSE_POS)
+        WIN_BACK.update(SCREEN)
+
+        # Return to main menu.
+        WIN_AGAIN = Button(image=None, pos=(640, 330),
+                          text_input="Play Again", font=get_font(75), base_color="White", hovering_color="Black")
+
+        WIN_AGAIN.changeColor(WIN_MOUSE_POS)
+        WIN_AGAIN.update(SCREEN)
 
         SCREEN.blit(WIN_TEXT, WIN_RECT)
 
@@ -208,8 +260,12 @@ def winner_menu():
                 sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if WIN_BACK.checkForInput(MENU_MOUSE_POS):
+                if WIN_BACK.checkForInput(WIN_MOUSE_POS):
                     main_menu()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
+                    game(board, turn, game_over)
 
         pygame.display.update()
 
@@ -315,7 +371,7 @@ def game(board, turn, game_over):
 
                         if winning_move(board, 1):
                             game_over = True
-                            winner_menu()
+                            one_winner()
 
 
                 # # Ask for Player 2 Input
@@ -329,7 +385,7 @@ def game(board, turn, game_over):
 
                         if winning_move(board, 2):
                             game_over = True
-                            winner_menu()
+                            two_winner()
 
                 print_board(board)
                 draw_board(board)
