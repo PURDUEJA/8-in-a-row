@@ -23,10 +23,8 @@ blue = pygame.image.load("../assets/CounterBlue.png")
 yellow = pygame.image.load("../assets/CounterYellow.png")
 red = pygame.image.load("../assets/CounterRed.png")
 boards = []
-resolutions = [(811, 811), (811, 811), (811, 811), (811, 811)]
 board = int
 boards.extend([BOARD8X7, BOARD9X8, BOARD10X9, BOARD11X10])
-
 
 
 
@@ -122,11 +120,11 @@ def draw_board(board):
                 pygame.draw.circle(SCREEN, RED, (
                     int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), (RADIUS - 7))
             elif board[r][c] == 2:
-                pygame.draw.circle(SCREEN, YELLOW, (
+                pygame.draw.circle(SCREEN, BLUE, (
                     int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
                 pygame.draw.circle(SCREEN, BLACK, (
                     int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), (RADIUS - 5))
-                pygame.draw.circle(SCREEN, YELLOW, (
+                pygame.draw.circle(SCREEN, BLUE, (
                     int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), (RADIUS - 7))
     pygame.display.update()
 
@@ -194,6 +192,13 @@ def winner_menu():
         WIN_TEXT = get_font(100).render("Player won", True, "#FFFFFF")
         WIN_RECT = WIN_TEXT.get_rect(center=(640, 100))
 
+        # Return to main menu.
+        WIN_BACK = Button(image=None, pos=(640, 460),
+                           text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
+
+        WIN_BACK.changeColor(MENU_MOUSE_POS)
+        WIN_BACK.update(SCREEN)
+
         SCREEN.blit(WIN_TEXT, WIN_RECT)
 
         # Runs button when clicked.
@@ -201,6 +206,10 @@ def winner_menu():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if WIN_BACK.checkForInput(MENU_MOUSE_POS):
+                    main_menu()
 
         pygame.display.update()
 
@@ -252,7 +261,7 @@ turn = 0
 
 def game(board, turn, game_over):
     """Plays the game itself"""
-    new_resolution = (811, 811)
+    new_resolution = (800, 800)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     current_resolution = new_resolution
     board = create_board()
@@ -269,18 +278,27 @@ def game(board, turn, game_over):
         TEMP_BACK.changeColor(GAME_MOUSE_POS)
         TEMP_BACK.update(SCREEN)
 
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if TEMP_BACK.checkForInput(GAME_MOUSE_POS):
+                    main_menu()
+
             if event.type == pygame.MOUSEMOTION:
                 pygame.draw.rect(SCREEN, BLACK, (0, 0, width, SQUARESIZE))
                 posx = event.pos[0]
                 if turn == 0:
-                    SCREEN.blit(red, (posx, int(SQUARESIZE / 2)))
+                    pygame.draw.circle(SCREEN, RED, (posx, int(SQUARESIZE / 2)), RADIUS)
+                    pygame.draw.circle(SCREEN, BLACK, (posx, int(SQUARESIZE / 2)), RADIUS - 5)
+                    pygame.draw.circle(SCREEN, RED, (posx, int(SQUARESIZE / 2)), RADIUS - 7)
                 else:
-                    SCREEN.blit(yellow, (posx, int(SQUARESIZE / 2)))
+                    pygame.draw.circle(SCREEN, BLUE, (posx, int(SQUARESIZE / 2)), RADIUS)
+                    pygame.draw.circle(SCREEN, BLACK, (posx, int(SQUARESIZE / 2)), RADIUS - 5)
+                    pygame.draw.circle(SCREEN, BLUE, (posx, int(SQUARESIZE / 2)), RADIUS - 7)
 
 
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -323,7 +341,6 @@ def game(board, turn, game_over):
                     pygame.time.wait(3000)
 
         pygame.display.update()
-
 
 def options():
     """Allows the user to change some settings, such as colourblindness."""
