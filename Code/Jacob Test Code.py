@@ -3,6 +3,7 @@ import pygame
 import sys
 import math
 from Button import Button
+from pygame import mixer
 
 pygame.init()
 # Sets window settings resolution and title.
@@ -25,6 +26,11 @@ red = pygame.image.load("../assets/CounterRed.png")
 boards = []
 board = int
 boards.extend([BOARD8X7, BOARD9X8, BOARD10X9, BOARD11X10])
+
+# Music
+#Instantiate mixer
+mixer.init()
+
 
 
 
@@ -137,6 +143,10 @@ def main_menu():
     """Main menu for the game."""
     new_resolution = (1280, 720)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    # Load audio file
+    mixer.music.load("../assets/Approach 1.mp3")
+    mixer.music.set_volume(0.5)
+    mixer.music.play()
     while True:
         SCREEN.blit(BG, (0, 0))
 
@@ -168,6 +178,7 @@ def main_menu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                mixer.music.stop()
                 sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -309,6 +320,7 @@ def play():
                     main_menu()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if START_GAME.checkForInput(PLAY_MOUSE_POS):
+                    mixer.music.pause()
                     game(board, turn, game_over)
 
         pygame.display.update()
