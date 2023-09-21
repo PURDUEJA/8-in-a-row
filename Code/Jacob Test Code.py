@@ -30,10 +30,11 @@ boards.extend([BOARD8X7, BOARD9X8, BOARD10X9, BOARD11X10])
 # Music
 #Instantiate mixer
 mixer.init()
-mixer.music.load("../assets/Click.wav")
-
-
-
+click = pygame.mixer.Sound("../assets/Click.wav")
+pygame.mixer.music.load("../assets/Approach 3.mp3")
+pygame.mixer.music.play()
+volume = 0.5
+mixer.music.set_volume(volume)
 
 
 BLUE = (0, 0, 255)
@@ -145,9 +146,7 @@ def main_menu():
     new_resolution = (1280, 720)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     # Load audio file
-    mixer.music.load("../assets/Approach 3.mp3")
-    mixer.music.set_volume(0.5)
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound("../assets/Approach 3.mp3"))
+
 
     while True:
         SCREEN.blit(BG, (0, 0))
@@ -190,7 +189,7 @@ def main_menu():
                     play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    options()
+                    options(volume)
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     pygame.quit()
@@ -417,7 +416,7 @@ def game(board, turn, game_over):
 
         pygame.display.update()
 
-def options():
+def options(volume):
     """Allows the user to change some settings, such as colourblindness."""
     while True:
         # Gets mouse position
@@ -426,9 +425,20 @@ def options():
         SCREEN.fill("white")
 
         # Main header text.
-        OPTIONS_TEXT = get_font(45).render("This is the OPTIONS screen.", True, "Black")
+        OPTIONS_TEXT = get_font(45).render("Options.", True, "Black")
+        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 160))
+        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
+
+        # Master volume text.
+        OPTIONS_TEXT = get_font(35).render("Music Volume.", True, "Black")
         OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
         SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
+
+        # Current volume text.
+        OPTIONS_TEXT = get_font(35).render(str(volume), True, "Black")
+        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 310))
+        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
+
 
         # Button to return to main menu from options.
         OPTIONS_BACK = Button(image=None, pos=(640, 460),
@@ -438,6 +448,19 @@ def options():
         OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
         OPTIONS_BACK.update(SCREEN)
 
+        # Volume adjust buttons
+        VOL_UP = Button(image=None, pos=(760, 360),
+                              text_input="+", font=get_font(75), base_color="Black", hovering_color="Green")
+
+        VOL_DOWN = Button(image=None, pos=(520, 360),
+                        text_input="-", font=get_font(75), base_color="Black", hovering_color="Green")
+
+        # Highlights options text while mouse hovers
+        VOL_UP.changeColor(OPTIONS_MOUSE_POS)
+        VOL_UP.update(SCREEN)
+        VOL_DOWN.changeColor(OPTIONS_MOUSE_POS)
+        VOL_DOWN.update(SCREEN)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -446,7 +469,35 @@ def options():
                 if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     main_menu()
+            # Button click for decreasing volume.
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if VOL_DOWN.checkForInput(OPTIONS_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+                    volume = round(volume - 0.1, 1)
+                    new_volume = volume
+                    if volume > 1:
+                        volume = 1.0
+                        new_volume = 1.0
+                    elif volume < 0:
+                        volume = 0.0
+                        new_volume = 0.0
+                    mixer.music.set_volume(new_volume)
+                    print(new_volume)
 
+            # Button click for increasing volume.
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if VOL_UP.checkForInput(OPTIONS_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+                    volume = round(volume + 0.1, 1)
+                    new_volume = volume
+                    if volume > 1:
+                        new_volume = 1.0
+                        volume = 1.0
+                    elif volume < 0:
+                        new_volume = 0.0
+                        volume = 0.0
+                    mixer.music.set_volume(new_volume)
+                    print(new_volume)
 
         pygame.display.update()
 main_menu()
