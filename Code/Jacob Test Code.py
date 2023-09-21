@@ -30,6 +30,7 @@ boards.extend([BOARD8X7, BOARD9X8, BOARD10X9, BOARD11X10])
 # Music
 #Instantiate mixer
 mixer.init()
+mixer.music.load("../assets/Click.wav")
 
 
 
@@ -144,9 +145,10 @@ def main_menu():
     new_resolution = (1280, 720)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     # Load audio file
-    mixer.music.load("../assets/Approach 1.mp3")
+    mixer.music.load("../assets/Approach 3.mp3")
     mixer.music.set_volume(0.5)
-    mixer.music.play()
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound("../assets/Approach 3.mp3"))
+
     while True:
         SCREEN.blit(BG, (0, 0))
 
@@ -178,15 +180,19 @@ def main_menu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                 mixer.music.stop()
                 sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     pygame.quit()
                     sys.exit()
 
@@ -228,10 +234,12 @@ def one_winner():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIN_BACK.checkForInput(WIN_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     main_menu()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     game(board, turn, game_over)
 
         pygame.display.update()
@@ -272,10 +280,12 @@ def two_winner():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIN_BACK.checkForInput(WIN_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     main_menu()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     game(board, turn, game_over)
 
         pygame.display.update()
@@ -317,9 +327,11 @@ def play():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     main_menu()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if START_GAME.checkForInput(PLAY_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     mixer.music.pause()
                     game(board, turn, game_over)
 
@@ -432,6 +444,7 @@ def options():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     main_menu()
 
 
