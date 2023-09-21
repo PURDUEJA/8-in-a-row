@@ -490,13 +490,11 @@ def options():
                         new_volume = 0.0
                     mixer.music.set_volume(new_volume)
 
-
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     main_menu()
 
         pygame.display.update()
-
 
 main_menu()
