@@ -435,7 +435,7 @@ def options(volume):
         SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
 
         # Current volume text.
-        OPTIONS_TEXT = get_font(35).render(str(volume), True, "Black")
+        OPTIONS_TEXT = get_font(35).render(str(volume * 100), True, "Black")
         OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 310))
         SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
 
