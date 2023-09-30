@@ -143,10 +143,8 @@ def get_font(size):  # Returns font in the desired size
 
 def main_menu():
     """Main menu for the game."""
-    # print(volume)
     new_resolution = (1280, 720)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
-    # Load audio file
 
     while True:
         SCREEN.blit(BG, (0, 0))
@@ -234,6 +232,7 @@ def one_winner():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIN_BACK.checkForInput(WIN_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+                    mixer.music.play()
                     main_menu()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -281,6 +280,7 @@ def two_winner():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIN_BACK.checkForInput(WIN_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+                    mixer.music.play()
                     main_menu()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
