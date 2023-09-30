@@ -145,10 +145,14 @@ def main_menu():
     """Main menu for the game."""
     new_resolution = (1280, 720)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    width = 1280
+    height = 720
+    speed = [1, 1]
+    clock = pygame.time.Clock()
+    ball = pygame.image.load("../assets/CounterYellow.png").convert()
+    ballrect = ball.get_rect()
 
     while True:
-        SCREEN.blit(BG, (0, 0))
-
         # Gets position of the mouse
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
@@ -191,6 +195,16 @@ def main_menu():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     pygame.quit()
                     sys.exit()
+        # Background animation
+        # https://www.geeksforgeeks.org/stimulate-bouncing-game-using-pygame/
+        ballrect = ballrect.move(speed)
+        if ballrect.left < 0 or ballrect.right > width:
+            speed[0] = -speed[0]
+        if ballrect.top < 0 or ballrect.bottom > height:
+            speed[1] = -speed[1]
+        SCREEN.blit(ball, ballrect)
+        #pygame.display.flip()
+        clock.tick(60)
 
         pygame.display.update()
 
