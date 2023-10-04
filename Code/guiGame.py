@@ -7,6 +7,8 @@ print("asjhdfkjahsdfgjakhsdfkjhgasdffdsa")
 
 class GUIclass:
     def __init__(self, x, y):
+        self.counterColour1 = "../assets/CounterRed.png"
+        self.counterColour2 = "../assets/CounterBlue.png"
         self.images = {}
         pygame.init()
         self.screen = pygame.display.set_mode((x, y))
@@ -113,12 +115,12 @@ class GUIclass:
                     match self.grid[row][collumn]:
                         case 1:
                             #print("1111")
-                            self.images[f"{collumn}, {row}"] = image("redCounter", pygame.image.load("../assets/counterRed.png"), 2, collumn, row)
+                            self.images[f"{collumn}, {row}"] = image("redCounter", pygame.image.load(self.counterColour1), 2, collumn, row)
                             #print(collumn)
                             #print(row)
                         case 2:
                             #print("22222")
-                            self.images[f"{collumn}, {row}"] = image("yellowCounter", pygame.image.load("../assets/counterBlue.png"), 2, collumn, row )
+                            self.images[f"{collumn}, {row}"] = image("yellowCounter", pygame.image.load(self.counterColour2), 2, collumn, row )
         self.update()
 
     def update(self):

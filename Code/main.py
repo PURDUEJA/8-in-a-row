@@ -30,10 +30,19 @@ BOARDTEST2 = pygame.image.load("../assets/BOARDTEST2.png")
 blue = pygame.image.load("../assets/CounterBlue.png")
 yellow = pygame.image.load("../assets/CounterYellow.png")
 red = pygame.image.load("../assets/CounterRed.png")
+purple = pygame.image.load("../assets/CounterPurple.png")
+green = pygame.image.load("../assets/CounterGreen.png")
+pink = pygame.image.load("../assets/CounterPink.png")
+# Adjusted sizes for displaying in options
+blue_display = pygame.transform.smoothscale(blue, (40, 40))
+yellow_display = pygame.transform.smoothscale(yellow, (40, 40))
+red_display = pygame.transform.smoothscale(red, (40, 40))
+purple_display = pygame.transform.smoothscale(purple, (40, 40))
+green_display = pygame.transform.smoothscale(green, (40, 40))
+pink_display = pygame.transform.smoothscale(pink, (40, 40))
 
 
 # Music
-
 # Initiate mixer.
 mixer.init()
 click = pygame.mixer.Sound("../assets/Click.wav")
@@ -616,6 +625,7 @@ def two_winner():
 def options():
     """Allows the user to change some settings, such as colourblindness."""
     while True:
+
         current_volume = round(pygame.mixer.music.get_volume(), 1)
 
         # Gets mouse position
@@ -624,22 +634,27 @@ def options():
         SCREEN.fill("white")
 
         # Main header text.
-        OPTIONS_TEXT = get_font(45).render("Options.", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 160))
+        OPTIONS_TEXT = get_font(45).render("Options", True, "Black")
+        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 60))
         SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
 
-        # Master volume text.
-        MUSIC_TEXT = get_font(35).render("Music Volume.", True, "Black")
-        MUSIC_RECT = MUSIC_TEXT.get_rect(center=(640, 260))
+        # Music volume text.
+        MUSIC_TEXT = get_font(35).render("Music Volume", True, "Black")
+        MUSIC_RECT = MUSIC_TEXT.get_rect(center=(340, 160))
         SCREEN.blit(MUSIC_TEXT, MUSIC_RECT)
 
         # Current volume text.
         VOL_TEXT = get_font(35).render(str(current_volume * 100), True, "Black")
-        VOL_RECT = VOL_TEXT.get_rect(center=(640, 310))
+        VOL_RECT = VOL_TEXT.get_rect(center=(340, 210))
         SCREEN.blit(VOL_TEXT, VOL_RECT)
 
+        # Colourblind text.
+        COLOR_TEXT = get_font(35).render("Colourblind mode", True, "Black")
+        COLOR_RECT = MUSIC_TEXT.get_rect(center=(910, 160))
+        SCREEN.blit(COLOR_TEXT, COLOR_RECT)
+
         # Button to return to main menu from options.
-        OPTIONS_BACK = Button(image=None, pos=(640, 460),
+        OPTIONS_BACK = Button(image=None, pos=(640, 660),
                               text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
 
         # Highlights options text while mouse hovers
@@ -647,10 +662,10 @@ def options():
         OPTIONS_BACK.update(SCREEN)
 
         # Volume adjust buttons
-        VOL_UP = Button(image=None, pos=(760, 360),
+        VOL_UP = Button(image=None, pos=(460, 260),
                         text_input="+", font=get_font(75), base_color="Black", hovering_color="Green")
 
-        VOL_DOWN = Button(image=None, pos=(520, 360),
+        VOL_DOWN = Button(image=None, pos=(220, 260),
                           text_input="-", font=get_font(75), base_color="Black", hovering_color="Green")
 
         # Highlights options text while mouse hovers
@@ -659,13 +674,39 @@ def options():
         VOL_DOWN.changeColor(OPTIONS_MOUSE_POS)
         VOL_DOWN.update(SCREEN)
 
+
+        # Colourblind change buttons
+        COLOR3 = Button(image=None, pos=(1090, 210),
+                        text_input="Color 3", font=get_font(25), base_color="Black", hovering_color="Green")
+
+        COLOR2 = Button(image=None, pos=(940, 210),
+                        text_input="Color 2", font=get_font(25), base_color="Black", hovering_color="Green")
+
+        COLOR1 = Button(image=None, pos=(790, 210),
+                          text_input="Color 1", font=get_font(25), base_color="Black", hovering_color="Green")
+
+        SCREEN.blit(red_display, (750, 250))
+        SCREEN.blit(blue_display, (800, 250))
+        SCREEN.blit(yellow_display, (900, 250))
+        SCREEN.blit(purple_display, (950, 250))
+        SCREEN.blit(green_display, (1050, 250))
+        SCREEN.blit(pink_display, (1100, 250))
+
+        # Highlights options text while mouse hovers
+        COLOR1.changeColor(OPTIONS_MOUSE_POS)
+        COLOR1.update(SCREEN)
+        COLOR2.changeColor(OPTIONS_MOUSE_POS)
+        COLOR2.update(SCREEN)
+        COLOR3.changeColor(OPTIONS_MOUSE_POS)
+        COLOR3.update(SCREEN)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-            # Button click for decreasing volume.
             if event.type == pygame.MOUSEBUTTONDOWN:
+                # Decreases volume if clicked
                 if VOL_DOWN.checkForInput(OPTIONS_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     new_volume = round(current_volume - 0.1, 1)
@@ -675,8 +716,7 @@ def options():
                         new_volume = 0.0
                     mixer.music.set_volume(new_volume)
 
-            # Button click for increasing volume.
-            if event.type == pygame.MOUSEBUTTONDOWN:
+                # Increases volume if clicked
                 if VOL_UP.checkForInput(OPTIONS_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     new_volume = round(current_volume + 0.1, 1)
@@ -686,10 +726,29 @@ def options():
                         new_volume = 0.0
                     mixer.music.set_volume(new_volume)
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
+                # Returns user to menu if clicked
                 if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     main_menu()
+
+                if COLOR1.checkForInput(OPTIONS_MOUSE_POS):
+                    #self.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterRed.png"), 1, 0, 0
+                    gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterRed.png"), 1, 0, 0)
+                    gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterBlue.png"), 1, 0, 0)
+                    gridGUI.counterColour1 = "../assets/CounterRed.png"
+                    gridGUI.counterColour2 = "../assets/CounterBlue.png"
+
+                if COLOR2.checkForInput(OPTIONS_MOUSE_POS):
+                    gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterYellow.png"), 1, 0, 0)
+                    gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterPurple.png"), 1, 0, 0)
+                    gridGUI.counterColour1 = "../assets/CounterYellow.png"
+                    gridGUI.counterColour2 = "../assets/CounterPurple.png"
+
+                if COLOR3.checkForInput(OPTIONS_MOUSE_POS):
+                    gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterGreen.png"), 1, 0, 0)
+                    gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterPink.png"), 1, 0, 0)
+                    gridGUI.counterColour1 = "../assets/CounterGreen.png"
+                    gridGUI.counterColour2 = "../assets/CounterPink.png"
 
         pygame.display.update()
 
