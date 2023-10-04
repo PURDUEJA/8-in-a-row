@@ -6,7 +6,6 @@ Start date: Thursday 20th July
 import time
 import asyncio
 from guiGame import image, GUIclass
-import numpy as np
 import pygame
 import sys
 import math
@@ -31,9 +30,7 @@ BOARDTEST2 = pygame.image.load("../assets/BOARDTEST2.png")
 blue = pygame.image.load("../assets/CounterBlue.png")
 yellow = pygame.image.load("../assets/CounterYellow.png")
 red = pygame.image.load("../assets/CounterRed.png")
-boards = []
-board = int
-boards.extend([BOARD8X7, BOARD9X8, BOARD10X9, BOARD11X10])
+
 
 # Music
 
@@ -213,7 +210,7 @@ def checkWinner(checkNumber):
     winnerFound = 0
     totaltimes = 0
     winnerFoundBool = False
-    while winnerFoundBool == False:
+    while winnerFoundBool is False:
         for row in range(len(grid)):
             for col in range(len(grid[row])):
                 totaltimes += 1
@@ -327,7 +324,7 @@ async def playerTurnLoop():
     PLAYERS = [1, 2]
     gameOver = False
 
-    board = image("board", pygame.image.load("../assets/Board8x7.drawio.png"), 3, 0, 0)
+    board = image("board", pygame.image.load("../assets/Board8x7.drawio-modified (1).png"), 3, 0, 0)
     #p1 = image("p1", pygame.image.load("CounterRed.png"), 2, 0, 0)
     #p2 = image("p2", pygame.image.load("CounterBlue.png"), 2, 0, 0)
 
@@ -396,7 +393,7 @@ def main_menu():
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     width = 1280
     height = 720
-    speed = [1, 1]
+    speed = [0, 1]
     clock = pygame.time.Clock()
     ball = pygame.image.load("../assets/CounterYellow.png").convert()
     ballrect = ball.get_rect()
@@ -447,12 +444,10 @@ def main_menu():
         # Background animation
         # https://www.geeksforgeeks.org/stimulate-bouncing-game-using-pygame/
         ballrect = ballrect.move(speed)
-        if ballrect.left < 0 or ballrect.right > width:
-            speed[0] = -speed[0]
         if ballrect.top < 0 or ballrect.bottom > height:
             speed[1] = -speed[1]
         SCREEN.blit(ball, ballrect)
-        #pygame.display.flip()
+        pygame.display.flip()
         clock.tick(60)
 
         pygame.display.update()
@@ -509,11 +504,113 @@ turn = 0
 
 def game():
     """Plays the game itself"""
-    new_resolution = (811, 711)
+    new_resolution = (1011, 711)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     current_resolution = new_resolution
     asyncio.run(main())
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
     pygame.display.update()
+
+def one_winner():
+    """Winner screen."""
+    new_resolution = (1280, 720)
+    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    SCREEN.fill("red")
+    while True:
+        # Gets position of the mouse
+        WIN_MOUSE_POS = pygame.mouse.get_pos()
+
+        WIN_TEXT = get_font(100).render("Red Won!", True, "#FFFFFF")
+        WIN_RECT = WIN_TEXT.get_rect(center=(640, 100))
+
+        # Return to main menu.
+        WIN_BACK = Button(image=None, pos=(640, 660),
+                          text_input="BACK", font=get_font(75), base_color="White", hovering_color="Black")
+
+        WIN_BACK.changeColor(WIN_MOUSE_POS)
+        WIN_BACK.update(SCREEN)
+
+        SCREEN.blit(WIN_TEXT, WIN_RECT)
+
+        # Return to main menu.
+        WIN_AGAIN = Button(image=None, pos=(640, 330),
+                           text_input="Play Again", font=get_font(75), base_color="White", hovering_color="Black")
+
+        WIN_AGAIN.changeColor(WIN_MOUSE_POS)
+        WIN_AGAIN.update(SCREEN)
+
+        # Runs button when clicked.
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if WIN_BACK.checkForInput(WIN_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+                    mixer.music.play()
+                    main_menu()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+                    game()
+
+        pygame.display.update()
+
+
+def two_winner():
+    """Winner screen."""
+    new_resolution = (1280, 720)
+    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    SCREEN.fill("blue")
+    while True:
+        # Gets position of the mouse
+        WIN_MOUSE_POS = pygame.mouse.get_pos()
+
+        WIN_TEXT = get_font(100).render("Blue Won!", True, "#FFFFFF")
+        WIN_RECT = WIN_TEXT.get_rect(center=(640, 100))
+
+        # Return to main menu.
+        WIN_BACK = Button(image=None, pos=(640, 660),
+                          text_input="BACK", font=get_font(75), base_color="White", hovering_color="Black")
+
+        WIN_BACK.changeColor(WIN_MOUSE_POS)
+        WIN_BACK.update(SCREEN)
+
+        # Return to main menu.
+        WIN_AGAIN = Button(image=None, pos=(640, 330),
+                           text_input="Play Again", font=get_font(75), base_color="White", hovering_color="Black")
+
+        WIN_AGAIN.changeColor(WIN_MOUSE_POS)
+        WIN_AGAIN.update(SCREEN)
+
+        SCREEN.blit(WIN_TEXT, WIN_RECT)
+
+        # Runs button when clicked.
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if WIN_BACK.checkForInput(WIN_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+                    mixer.music.play()
+                    main_menu()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+                    game()
+
+        pygame.display.update()
+
 
 
 def options():
