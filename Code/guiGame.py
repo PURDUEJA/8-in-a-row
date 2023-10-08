@@ -10,6 +10,8 @@ print("asjhdfkjahsdfgjakhsdfkjhgasdffdsa")
 
 class GUIclass:
     def __init__(self, x, y):
+        self.counterColour1 = "../assets/CounterRed.png"
+        self.counterColour2 = "../assets/CounterBlue.png"
         self.images = {}
         self.text = {}
         pygame.init()
@@ -18,10 +20,10 @@ class GUIclass:
         self.x = x
         self.y = y
         self.images["redGhost"] = image(
-            "redGhost", pygame.image.load("CounterRed.png"), 1, 0, 0
+            "redGhost", pygame.image.load(self.counterColour1), 1, 0, 0
         )
         self.images["blueGhost"] = image(
-            "blueGhost", pygame.image.load("CounterBlue.png"), 1, 0, 0
+            "blueGhost", pygame.image.load(self.counterColour2), 1, 0, 0
         )
         self.grid = []
         self.playerTurn = 1
@@ -124,27 +126,27 @@ class GUIclass:
                     match self.grid[row][collumn]:
                         case 1:
                             #print("1111")
-                            self.images[f"{collumn}, {row}"] = image("redCounter", pygame.image.load("counterRed.png"), 2, collumn, row)
+                            self.images[f"{collumn}, {row}"] = image("redCounter", pygame.image.load(self.counterColour1), 2, collumn, row)
                             #print(collumn)
                             #print(row)
                         case 2:
                             #print("22222")
-                            self.images[f"{collumn}, {row}"] = image("yellowCounter", pygame.image.load("counterBlue.png"), 2, collumn, row )
+                            self.images[f"{collumn}, {row}"] = image("yellowCounter", pygame.image.load(self.counterColour2), 2, collumn, row )
                         case 10:
                             powerup = self.powerups[10]
-                            scaled_image = pygame.image.load(f"{powerup}.png")
+                            scaled_image = pygame.image.load(f"../assets/{powerup}.png")
                             scaled_image.set_alpha(128)
                             #scaled_image = pygame.transform.scale(pygame.image.load(f"{powerup}.png"), (30, 30))
                             self.images[f"{collumn}, {row}"] = image(powerup, scaled_image, 2, collumn, row )
                         case 11:
                             powerup = self.powerups[11]
-                            scaled_image = pygame.image.load(f"{powerup}.png")
+                            scaled_image = pygame.image.load(f"../assets/{powerup}.png")
                             scaled_image.set_alpha(128)
                             #scaled_image = pygame.transform.scale(pygame.image.load(f"{powerup}.png"), (30, 30))
                             self.images[f"{collumn}, {row}"] = image(powerup, scaled_image, 2, collumn, row )
                         case 12:
                             powerup = self.powerups[12]
-                            scaled_image = pygame.image.load(f"{powerup}.png")
+                            scaled_image = pygame.image.load(f"../assets/{powerup}.png")
                             scaled_image.set_alpha(128)
                             #scaled_image = pygame.transform.scale(pygame.image.load(f"{powerup}.png"), (30, 30))
                             self.images[f"{collumn}, {row}"] = image(powerup, scaled_image, 2, collumn, row )
@@ -299,7 +301,7 @@ class GUIclass:
         for x in range(2):
             for y in range(3):
                 if self.powerupGrid[y][x] != 0:
-                    self.powerupImages[f"{x}, {y}"] = image(f"{x}, {y}", pygame.image.load(f"{self.powerups[self.powerupGrid[y][x]]}.png"), 1, x, y)
+                    self.powerupImages[f"{x}, {y}"] = image(f"{x}, {y}", pygame.image.load(f"../assets/{self.powerups[self.powerupGrid[y][x]]}.png"), 1, x, y)
                 else:
                     try:
                         del self.powerupImages[f"{x}, {y}"]
@@ -401,7 +403,7 @@ class GUIclass:
                                 self.putCounter((x_coord - 1), self.playerTurn)
                                 # print("456745674567")
                                 print(f"Placed Counter {self.playerTurn} at ({x_coord},{y_coord})")
-                                sound = pygame.mixer.Sound("assets_Click.wav")
+                                sound = pygame.mixer.Sound("../assets/Click.wav")
                                 sound.play()
                                 if self.checkWinner(4):
                                     self.gg()
