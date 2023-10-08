@@ -1,60 +1,8 @@
-"""
-Ultimate Connect.
-Creators: Jacob Purdue and Nick Kho
-Start date: Thursday 20th July
-"""
 import time
-import asyncio
-from guiGame import image, GUIclass
 import pygame
-import sys
+import asyncio
 import math
-from Button import Button
-from pygame import mixer
-
-pygame.init()
-# Sets window settings resolution and title.
-current_resolution = (1280, 720)
-SCREEN = pygame.display.set_mode(current_resolution, pygame.RESIZABLE)
-pygame.display.set_caption("Ultimate Connect")
-
-# Background image
-BG = pygame.image.load("../assets/tempBG_1280x720.png")
-BOARD8X7 = pygame.image.load("../assets/Board8x7.drawio.png")
-BOARD9X8 = pygame.image.load("../assets/Board9x8.drawio.png")
-BOARD10X9 = pygame.image.load("../assets/Board10x9.drawio.png")
-BOARD11X10 = pygame.image.load("../assets/Board11x10.drawio.png")
-BOARDTEST = pygame.image.load("../assets/BOARDTEST.png")
-BOARDTEST2 = pygame.image.load("../assets/BOARDTEST2.png")
-# Counters
-blue = pygame.image.load("../assets/CounterBlue.png")
-yellow = pygame.image.load("../assets/CounterYellow.png")
-red = pygame.image.load("../assets/CounterRed.png")
-purple = pygame.image.load("../assets/CounterPurple.png")
-green = pygame.image.load("../assets/CounterGreen.png")
-pink = pygame.image.load("../assets/CounterPink.png")
-# Adjusted sizes for displaying in options
-blue_display = pygame.transform.smoothscale(blue, (40, 40))
-yellow_display = pygame.transform.smoothscale(yellow, (40, 40))
-red_display = pygame.transform.smoothscale(red, (40, 40))
-purple_display = pygame.transform.smoothscale(purple, (40, 40))
-green_display = pygame.transform.smoothscale(green, (40, 40))
-pink_display = pygame.transform.smoothscale(pink, (40, 40))
-
-
-# Music
-# Initiate mixer.
-mixer.init()
-click = pygame.mixer.Sound("../assets/Click.wav")
-pygame.mixer.music.load("../assets/Approach 3.mp3")
-pygame.mixer.music.play()
-DEFAULT_VOLUME = 0.5
-mixer.music.set_volume(DEFAULT_VOLUME)
-
-BLUE = (0, 0, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-YELLOW = (255, 255, 0)
+from guiGame import image, GUIclass
 
 
 def spawnCounter():
@@ -63,6 +11,15 @@ def spawnCounter():
 
 def refresh():
     pass
+
+
+"""
+Ultimate Connect.
+Creators: Jacob Purdue and Nick Kho
+Start date: Thursday 20th July
+"""
+
+
 
 
 def printGrid():
@@ -219,7 +176,7 @@ def checkWinner(checkNumber):
     winnerFound = 0
     totaltimes = 0
     winnerFoundBool = False
-    while winnerFoundBool is False:
+    while winnerFoundBool == False:
         for row in range(len(grid)):
             for col in range(len(grid[row])):
                 totaltimes += 1
@@ -319,21 +276,23 @@ for y in range(7):
 
     grid.append(grid_list)
 playerTurn = 1
-gridGUI = GUIclass(811, 711)
+gridGUI = GUIclass(1011, 711)
 #putCounter(0, 1)
 #putCounter(0, 2)
-putCounter(7, 1)
-putCounter(7, 2)
 gridGUI.updateToGrid(grid)
+gridGUI.spawnPowerups()
+gridGUI.updateToGrid(grid)
+gridGUI.update()
+
 
 
 
 async def playerTurnLoop():
-    startMouseCapture()
+    # startMouseCapture()
     PLAYERS = [1, 2]
     gameOver = False
 
-    board = image("board", pygame.image.load("../assets/Board8x7.drawio-modified (1).png"), 3, 0, 0)
+    board = image("board", pygame.image.load("Board8x7.drawio.png"), 3, 0, 0)
     #p1 = image("p1", pygame.image.load("CounterRed.png"), 2, 0, 0)
     #p2 = image("p2", pygame.image.load("CounterBlue.png"), 2, 0, 0)
 
@@ -341,8 +300,26 @@ async def playerTurnLoop():
     #gridGUI.images["p1"] = p1
     #gridGUI.images["p2"] = p2
     gridGUI.update()
-    await gridGUI.start()
+    winner = await gridGUI.start()
+    font = pygame.font.Font(None, 100)
+    match winner:
+        case 1:
+            color = (255, 0, 0)
+        case 2:
+            color = (0, 0, 255)
+    text = font.render(f"Player {winner} wins", True, color)
+    gridGUI.screen.blit(text, (300, 300))
+    gridGUI.test()
+    print(f"Winner is {winner}")
+    # pygame.display.update()
     await getMouseInput()
+
+
+
+
+
+
+    # This code doesn't do anything  lol
     gameOver = True
     # gridGUI.update()
     while gameOver == False:
@@ -390,368 +367,6 @@ async def main():
     # checkDiagonallyOpposite(0, 0, 1, 4)
 
 
+asyncio.run(main())
 
-def get_font(size):  # Returns font in the desired size
-
-    return pygame.font.Font("../assets/DiloWorld-mLJLv.ttf", size)
-
-
-def main_menu():
-    """Main menu for the game."""
-    new_resolution = (1280, 720)
-    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
-    width = 1280
-    height = 720
-    speed = [0, 1]
-    clock = pygame.time.Clock()
-    ball = pygame.image.load("../assets/CounterYellow.png").convert()
-    ballrect = ball.get_rect()
-
-    while True:
-        # Gets position of the mouse
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
-
-        MENU_TEXT = get_font(100).render("Ultimate Connect", True, "#FFFFFF")
-        MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
-
-        # All buttons on main menu.
-        PLAY_BUTTON = Button(image=pygame.image.load("../assets/Play Rect.png"), pos=(640, 250),
-                             text_input="PLAY", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-
-        OPTIONS_BUTTON = Button(image=pygame.image.load("../assets/Options Rect.png"), pos=(640, 400),
-                                text_input="OPTIONS", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-
-        QUIT_BUTTON = Button(image=pygame.image.load("../assets/Quit Rect.png"), pos=(640, 550),
-                             text_input="QUIT", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-
-        SCREEN.blit(MENU_TEXT, MENU_RECT)
-
-        # Changes colour of button when hovered by mouse.
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
-            button.update(SCREEN)
-
-        # Runs button when clicked.
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                mixer.music.stop()
-                sys.exit()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    play()
-                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    options()
-                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    pygame.quit()
-                    sys.exit()
-        # Background animation
-        # https://www.geeksforgeeks.org/stimulate-bouncing-game-using-pygame/
-        ballrect = ballrect.move(speed)
-        if ballrect.top < 0 or ballrect.bottom > height:
-            speed[1] = -speed[1]
-        SCREEN.blit(ball, ballrect)
-        pygame.display.flip()
-        clock.tick(60)
-
-        pygame.display.update()
-
-
-def play():
-    """Puts user into the start game menu"""
-    while True:
-
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()
-
-        # Fills screen with black to place anything over.
-        SCREEN.fill("black")
-
-        # Main header text.
-        PLAY_TEXT = get_font(45).render("Game Setup.", True, "White")
-        PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 60))
-        SCREEN.blit(PLAY_TEXT, PLAY_RECT)
-
-        # Return to main menu.
-        PLAY_BACK = Button(image=None, pos=(640, 460),
-                           text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
-
-        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
-        PLAY_BACK.update(SCREEN)
-
-        # Continue to game
-        START_GAME = Button(image=None, pos=(640, 160),
-                            text_input="Start game", font=get_font(75), base_color="White", hovering_color="Green")
-
-        # Highlights options text while mouse hovers
-        START_GAME.changeColor(PLAY_MOUSE_POS)
-        START_GAME.update(SCREEN)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    main_menu()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if START_GAME.checkForInput(PLAY_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    mixer.music.pause()
-                    game()
-
-        pygame.display.update()
-
-
-turn = 0
-
-
-def game():
-    """Plays the game itself"""
-    new_resolution = (1011, 711)
-    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
-    current_resolution = new_resolution
-    asyncio.run(main())
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-
-    pygame.display.update()
-
-def one_winner():
-    """Winner screen."""
-    new_resolution = (1280, 720)
-    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
-    SCREEN.fill("red")
-    while True:
-        # Gets position of the mouse
-        WIN_MOUSE_POS = pygame.mouse.get_pos()
-
-        WIN_TEXT = get_font(100).render("Red Won!", True, "#FFFFFF")
-        WIN_RECT = WIN_TEXT.get_rect(center=(640, 100))
-
-        # Return to main menu.
-        WIN_BACK = Button(image=None, pos=(640, 660),
-                          text_input="BACK", font=get_font(75), base_color="White", hovering_color="Black")
-
-        WIN_BACK.changeColor(WIN_MOUSE_POS)
-        WIN_BACK.update(SCREEN)
-
-        SCREEN.blit(WIN_TEXT, WIN_RECT)
-
-        # Return to main menu.
-        WIN_AGAIN = Button(image=None, pos=(640, 330),
-                           text_input="Play Again", font=get_font(75), base_color="White", hovering_color="Black")
-
-        WIN_AGAIN.changeColor(WIN_MOUSE_POS)
-        WIN_AGAIN.update(SCREEN)
-
-        # Runs button when clicked.
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if WIN_BACK.checkForInput(WIN_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    mixer.music.play()
-                    main_menu()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    game()
-
-        pygame.display.update()
-
-
-def two_winner():
-    """Winner screen."""
-    new_resolution = (1280, 720)
-    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
-    SCREEN.fill("blue")
-    while True:
-        # Gets position of the mouse
-        WIN_MOUSE_POS = pygame.mouse.get_pos()
-
-        WIN_TEXT = get_font(100).render("Blue Won!", True, "#FFFFFF")
-        WIN_RECT = WIN_TEXT.get_rect(center=(640, 100))
-
-        # Return to main menu.
-        WIN_BACK = Button(image=None, pos=(640, 660),
-                          text_input="BACK", font=get_font(75), base_color="White", hovering_color="Black")
-
-        WIN_BACK.changeColor(WIN_MOUSE_POS)
-        WIN_BACK.update(SCREEN)
-
-        # Return to main menu.
-        WIN_AGAIN = Button(image=None, pos=(640, 330),
-                           text_input="Play Again", font=get_font(75), base_color="White", hovering_color="Black")
-
-        WIN_AGAIN.changeColor(WIN_MOUSE_POS)
-        WIN_AGAIN.update(SCREEN)
-
-        SCREEN.blit(WIN_TEXT, WIN_RECT)
-
-        # Runs button when clicked.
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if WIN_BACK.checkForInput(WIN_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    mixer.music.play()
-                    main_menu()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    game()
-
-        pygame.display.update()
-
-
-
-def options():
-    """Allows the user to change some settings, such as colourblindness."""
-    while True:
-
-        current_volume = round(pygame.mixer.music.get_volume(), 1)
-
-        # Gets mouse position
-        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-
-        SCREEN.fill("white")
-
-        # Main header text.
-        OPTIONS_TEXT = get_font(45).render("Options", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 60))
-        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
-
-        # Music volume text.
-        MUSIC_TEXT = get_font(35).render("Music Volume", True, "Black")
-        MUSIC_RECT = MUSIC_TEXT.get_rect(center=(340, 160))
-        SCREEN.blit(MUSIC_TEXT, MUSIC_RECT)
-
-        # Current volume text.
-        VOL_TEXT = get_font(35).render(str(current_volume * 100), True, "Black")
-        VOL_RECT = VOL_TEXT.get_rect(center=(340, 210))
-        SCREEN.blit(VOL_TEXT, VOL_RECT)
-
-        # Colourblind text.
-        COLOR_TEXT = get_font(35).render("Colourblind mode", True, "Black")
-        COLOR_RECT = MUSIC_TEXT.get_rect(center=(910, 160))
-        SCREEN.blit(COLOR_TEXT, COLOR_RECT)
-
-        # Button to return to main menu from options.
-        OPTIONS_BACK = Button(image=None, pos=(640, 660),
-                              text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
-
-        # Highlights options text while mouse hovers
-        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-        OPTIONS_BACK.update(SCREEN)
-
-        # Volume adjust buttons
-        VOL_UP = Button(image=None, pos=(460, 260),
-                        text_input="+", font=get_font(75), base_color="Black", hovering_color="Green")
-
-        VOL_DOWN = Button(image=None, pos=(220, 260),
-                          text_input="-", font=get_font(75), base_color="Black", hovering_color="Green")
-
-        # Highlights options text while mouse hovers
-        VOL_UP.changeColor(OPTIONS_MOUSE_POS)
-        VOL_UP.update(SCREEN)
-        VOL_DOWN.changeColor(OPTIONS_MOUSE_POS)
-        VOL_DOWN.update(SCREEN)
-
-
-        # Colourblind change buttons
-        COLOR3 = Button(image=None, pos=(1090, 210),
-                        text_input="Color 3", font=get_font(25), base_color="Black", hovering_color="Green")
-
-        COLOR2 = Button(image=None, pos=(940, 210),
-                        text_input="Color 2", font=get_font(25), base_color="Black", hovering_color="Green")
-
-        COLOR1 = Button(image=None, pos=(790, 210),
-                          text_input="Color 1", font=get_font(25), base_color="Black", hovering_color="Green")
-
-        SCREEN.blit(red_display, (750, 250))
-        SCREEN.blit(blue_display, (800, 250))
-        SCREEN.blit(yellow_display, (900, 250))
-        SCREEN.blit(purple_display, (950, 250))
-        SCREEN.blit(green_display, (1050, 250))
-        SCREEN.blit(pink_display, (1100, 250))
-
-        # Highlights options text while mouse hovers
-        COLOR1.changeColor(OPTIONS_MOUSE_POS)
-        COLOR1.update(SCREEN)
-        COLOR2.changeColor(OPTIONS_MOUSE_POS)
-        COLOR2.update(SCREEN)
-        COLOR3.changeColor(OPTIONS_MOUSE_POS)
-        COLOR3.update(SCREEN)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                # Decreases volume if clicked
-                if VOL_DOWN.checkForInput(OPTIONS_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    new_volume = round(current_volume - 0.1, 1)
-                    if new_volume > 1:
-                        new_volume = 1.0
-                    elif new_volume < 0:
-                        new_volume = 0.0
-                    mixer.music.set_volume(new_volume)
-
-                # Increases volume if clicked
-                if VOL_UP.checkForInput(OPTIONS_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    new_volume = round(current_volume + 0.1, 1)
-                    if new_volume > 1:
-                        new_volume = 1.0
-                    elif new_volume < 0:
-                        new_volume = 0.0
-                    mixer.music.set_volume(new_volume)
-
-                # Returns user to menu if clicked
-                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    main_menu()
-
-                if COLOR1.checkForInput(OPTIONS_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterRed.png"), 1, 0, 0)
-                    gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterBlue.png"), 1, 0, 0)
-                    gridGUI.counterColour1 = "../assets/CounterRed.png"
-                    gridGUI.counterColour2 = "../assets/CounterBlue.png"
-
-                if COLOR2.checkForInput(OPTIONS_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterYellow.png"), 1, 0, 0)
-                    gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterPurple.png"), 1, 0, 0)
-                    gridGUI.counterColour1 = "../assets/CounterYellow.png"
-                    gridGUI.counterColour2 = "../assets/CounterPurple.png"
-
-                if COLOR3.checkForInput(OPTIONS_MOUSE_POS):
-                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterGreen.png"), 1, 0, 0)
-                    gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterPink.png"), 1, 0, 0)
-                    gridGUI.counterColour1 = "../assets/CounterGreen.png"
-                    gridGUI.counterColour2 = "../assets/CounterPink.png"
-
-        pygame.display.update()
-
-main_menu()
+pygame.quit()
