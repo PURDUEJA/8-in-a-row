@@ -732,19 +732,21 @@ def options():
                     main_menu()
 
                 if COLOR1.checkForInput(OPTIONS_MOUSE_POS):
-                    #self.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterRed.png"), 1, 0, 0
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterRed.png"), 1, 0, 0)
                     gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterBlue.png"), 1, 0, 0)
                     gridGUI.counterColour1 = "../assets/CounterRed.png"
                     gridGUI.counterColour2 = "../assets/CounterBlue.png"
 
                 if COLOR2.checkForInput(OPTIONS_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterYellow.png"), 1, 0, 0)
                     gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterPurple.png"), 1, 0, 0)
                     gridGUI.counterColour1 = "../assets/CounterYellow.png"
                     gridGUI.counterColour2 = "../assets/CounterPurple.png"
 
                 if COLOR3.checkForInput(OPTIONS_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterGreen.png"), 1, 0, 0)
                     gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterPink.png"), 1, 0, 0)
                     gridGUI.counterColour1 = "../assets/CounterGreen.png"
