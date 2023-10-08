@@ -386,7 +386,7 @@ class GUIclass:
                                 power = self.powerups[self.powerupGrid[y_coord - 1][other_x]]
                                 self.usePower(power, other_x + 1)
                                 self.powerupGrid[y_coord - 1][other_x] = 0
-                                sound = pygame.mixer.Sound("assets_Click.wav")
+                                sound = pygame.mixer.Sound("../assets/Click.wav")
                                 sound.play()
                             except KeyError:
                                 pass
