@@ -505,9 +505,20 @@ def play():
         START_GAME = Button(image=None, pos=(640, 160),
                             text_input="Start game", font=get_font(75), base_color="White", hovering_color="Green")
 
-        # Highlights options text while mouse hovers
+        # Highlights game start while mouse hovers
         START_GAME.changeColor(PLAY_MOUSE_POS)
         START_GAME.update(SCREEN)
+
+        # Starts rules
+        RULES_BUTTON = Button(image=None, pos=(640, 260),
+                            text_input="Instructions", font=get_font(50), base_color="White", hovering_color="Green")
+
+
+        START_GAME.changeColor(PLAY_MOUSE_POS)
+        START_GAME.update(SCREEN)
+        RULES_BUTTON.changeColor(PLAY_MOUSE_POS)
+        RULES_BUTTON.update(SCREEN)
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -517,16 +528,17 @@ def play():
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     main_menu()
-            if event.type == pygame.MOUSEBUTTONDOWN:
                 if START_GAME.checkForInput(PLAY_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     mixer.music.pause()
                     game()
+                if RULES_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+                    rules()
 
         pygame.display.update()
 
 
-turn = 0
 
 
 def game():
@@ -542,6 +554,43 @@ def game():
             sys.exit()
 
     pygame.display.update()
+
+def rules():
+    """Rules menu."""
+    SCREEN.fill("White")
+    while True:
+        RULES_MOUSE_POS = pygame.mouse.get_pos()
+        # Main header text.
+        MAIN_RULES = get_font(30).render("Players choose coloured counters. They drop the discs into the grid, starting in the middle", True, "Black")
+        MAIN_RULES3 = get_font(30).render("or at the edge to stack their colored discs upwards, horizontally, or diagonally. ", True, "Black")
+        MAIN_RECT3 = MAIN_RULES3.get_rect(center=(640, 185))
+        MAIN_RULES2 = get_font(30).render("Use strategy to block opponents while aiming to be the first player to get 4 in a row to win.", True, "Black")
+        MAIN_RECT = MAIN_RULES.get_rect(center=(640, 160))
+        MAIN_RECT2 = MAIN_RULES2.get_rect(center=(640, 210))
+        HEADER_TEXT = get_font(45).render("Instructions", True, "Black")
+        HEADER_RECT = HEADER_TEXT.get_rect(center=(640, 60))
+
+        # Button to return to main menu from options.
+        RULES_BACK = Button(image=None, pos=(640, 660),
+                              text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+
+        RULES_BACK.changeColor(RULES_MOUSE_POS)
+        RULES_BACK.update(SCREEN)
+        # Blits all text to screen
+        SCREEN.blit(HEADER_TEXT, HEADER_RECT)
+        SCREEN.blit(MAIN_RULES, MAIN_RECT)
+        SCREEN.blit(MAIN_RULES2, MAIN_RECT2)
+        SCREEN.blit(MAIN_RULES3, MAIN_RECT3)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if RULES_BACK.checkForInput(RULES_MOUSE_POS):
+                    play()
+
+        pygame.display.update()
 
 def one_winner():
     """Winner screen."""
