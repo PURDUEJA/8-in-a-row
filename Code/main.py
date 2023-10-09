@@ -15,7 +15,7 @@ from pygame import mixer
 pygame.init()
 # Sets window settings resolution and title.
 current_resolution = (1280, 720)
-SCREEN = pygame.display.set_mode(current_resolution, pygame.RESIZABLE)
+SCREEN = pygame.display.set_mode(current_resolution)
 pygame.display.set_caption("Ultimate Connect")
 
 # Background image
@@ -417,7 +417,7 @@ def get_font(size):  # Returns font in the desired size
 def main_menu():
     """Main menu for the game."""
     new_resolution = (1280, 720)
-    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    SCREEN = pygame.display.set_mode(new_resolution)
     width = 1280
     height = 720
     speed = [0, 1]
@@ -544,7 +544,7 @@ def play():
 def game():
     """Plays the game itself"""
     new_resolution = (1011, 711)
-    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    SCREEN = pygame.display.set_mode(new_resolution)
     current_resolution = new_resolution
     asyncio.run(main())
 
@@ -595,7 +595,7 @@ def rules():
 def one_winner():
     """Winner screen."""
     new_resolution = (1280, 720)
-    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    SCREEN = pygame.display.set_mode(new_resolution)
     SCREEN.fill("red")
     while True:
         # Gets position of the mouse
@@ -643,7 +643,7 @@ def one_winner():
 def two_winner():
     """Winner screen."""
     new_resolution = (1280, 720)
-    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    SCREEN = pygame.display.set_mode(new_resolution)
     SCREEN.fill("blue")
     while True:
         # Gets position of the mouse
