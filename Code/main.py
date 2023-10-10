@@ -15,17 +15,9 @@ from pygame import mixer
 pygame.init()
 # Sets window settings resolution and title.
 current_resolution = (1280, 720)
-SCREEN = pygame.display.set_mode(current_resolution)
+SCREEN = pygame.display.set_mode(current_resolution, pygame.RESIZABLE)
 pygame.display.set_caption("Ultimate Connect")
 
-# Background image
-BG = pygame.image.load("../assets/tempBG_1280x720.png")
-BOARD8X7 = pygame.image.load("../assets/Board8x7.drawio.png")
-BOARD9X8 = pygame.image.load("../assets/Board9x8.drawio.png")
-BOARD10X9 = pygame.image.load("../assets/Board10x9.drawio.png")
-BOARD11X10 = pygame.image.load("../assets/Board11x10.drawio.png")
-BOARDTEST = pygame.image.load("../assets/BOARDTEST.png")
-BOARDTEST2 = pygame.image.load("../assets/BOARDTEST2.png")
 # Counters
 blue = pygame.image.load("../assets/CounterBlue.png")
 yellow = pygame.image.load("../assets/CounterYellow.png")
@@ -33,6 +25,10 @@ red = pygame.image.load("../assets/CounterRed.png")
 purple = pygame.image.load("../assets/CounterPurple.png")
 green = pygame.image.load("../assets/CounterGreen.png")
 pink = pygame.image.load("../assets/CounterPink.png")
+getcounter = pygame.image.load("../assets/GetCounter.png")
+skipturn = pygame.image.load("../assets/SkipTurn.png")
+taketurn = pygame.image.load("../assets/TakeTurn.png")
+
 # Adjusted sizes for displaying in options
 blue_display = pygame.transform.smoothscale(blue, (40, 40))
 yellow_display = pygame.transform.smoothscale(yellow, (40, 40))
@@ -417,7 +413,7 @@ def get_font(size):  # Returns font in the desired size
 def main_menu():
     """Main menu for the game."""
     new_resolution = (1280, 720)
-    SCREEN = pygame.display.set_mode(new_resolution)
+    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     width = 1280
     height = 720
     speed = [0, 1]
@@ -544,7 +540,7 @@ def play():
 def game():
     """Plays the game itself"""
     new_resolution = (1011, 711)
-    SCREEN = pygame.display.set_mode(new_resolution)
+    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     current_resolution = new_resolution
     asyncio.run(main())
 
@@ -560,15 +556,46 @@ def rules():
     SCREEN.fill("White")
     while True:
         RULES_MOUSE_POS = pygame.mouse.get_pos()
-        # Main header text.
-        MAIN_RULES = get_font(30).render("Players choose coloured counters. They drop the discs into the grid, starting in the middle", True, "Black")
-        MAIN_RULES3 = get_font(30).render("or at the edge to stack their colored discs upwards, horizontally, or diagonally. ", True, "Black")
-        MAIN_RECT3 = MAIN_RULES3.get_rect(center=(640, 185))
-        MAIN_RULES2 = get_font(30).render("Use strategy to block opponents while aiming to be the first player to get 4 in a row to win.", True, "Black")
-        MAIN_RECT = MAIN_RULES.get_rect(center=(640, 160))
-        MAIN_RECT2 = MAIN_RULES2.get_rect(center=(640, 210))
+
         HEADER_TEXT = get_font(45).render("Instructions", True, "Black")
         HEADER_RECT = HEADER_TEXT.get_rect(center=(640, 60))
+        # Move instructions down lines
+        font = pygame.font.Font("../assets/DiloWorld-mLJLv.ttf", 30)
+        text_color = ("Black")
+        text = "Players choose yellow or red discs. They drop the discs " \
+               "into the grid by clicking at that location, starting in the middle or at the edge to " \
+               "stack their colored discs upwards, horizontally, or diagonally. " \
+               "Use strategy and powerups to block opponents while aiming to be the first player " \
+               "to get 4 in a row to win."
+
+        max_line_length = 90
+        lines = []
+
+        # Split the text into lines
+        words = text.split()
+        current_line = ""
+        for word in words:
+            if len(current_line) + len(word) + 1 <= max_line_length:
+                current_line += word + " "
+            else:
+                lines.append(current_line)
+                current_line = word + " "
+        lines.append(current_line)
+
+        y_position = 100  # Starting y-position for the text
+        for line in lines:
+            text_surface = font.render(line, True, text_color)
+            SCREEN.blit(text_surface, (50, y_position))
+            y_position += text_surface.get_height() + 10  # vertical spacing
+
+
+
+        pygame.display.flip()
+
+        POWERUPS_TEXT = get_font(40).render("Powerups", True, "Black")
+        POWERUPS_RECT = POWERUPS_TEXT.get_rect(center=(640, 290))
+        SCREEN.blit(HEADER_TEXT, HEADER_RECT)
+        SCREEN.blit(POWERUPS_TEXT, POWERUPS_RECT)
 
         # Button to return to main menu from options.
         RULES_BACK = Button(image=None, pos=(640, 660),
@@ -576,11 +603,26 @@ def rules():
 
         RULES_BACK.changeColor(RULES_MOUSE_POS)
         RULES_BACK.update(SCREEN)
-        # Blits all text to screen
+
+        # Extra counter instructions
+        SCREEN.blit(getcounter, (50, 320))
+        GETCOUNTER_TEXT = get_font(25).render("Extra Counter", True, "Black")
+        GETCOUNTER_RECT = GETCOUNTER_TEXT.get_rect(center=(250, 370))
+        SCREEN.blit(GETCOUNTER_TEXT, GETCOUNTER_RECT)
+
+        # Skip turn counter instructions
+        SCREEN.blit(skipturn, (500, 320))
+        SKIPTURN_TEXT = get_font(25).render("Skip Enemy Turn", True, "Black")
+        SKIPTURN_RECT = SKIPTURN_TEXT.get_rect(center=(700, 370))
+        SCREEN.blit(SKIPTURN_TEXT, SKIPTURN_RECT)
+
+        # Take turn counter instructions
+        SCREEN.blit(taketurn, (950, 320))
+        TAKETURN_TEXT = get_font(25).render("Take Enemys turn", True, "Black")
+        TAKETURN_RECT = TAKETURN_TEXT.get_rect(center=(1160, 370))
+        SCREEN.blit(TAKETURN_TEXT, TAKETURN_RECT)
+
         SCREEN.blit(HEADER_TEXT, HEADER_RECT)
-        SCREEN.blit(MAIN_RULES, MAIN_RECT)
-        SCREEN.blit(MAIN_RULES2, MAIN_RECT2)
-        SCREEN.blit(MAIN_RULES3, MAIN_RECT3)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -595,7 +637,7 @@ def rules():
 def one_winner():
     """Winner screen."""
     new_resolution = (1280, 720)
-    SCREEN = pygame.display.set_mode(new_resolution)
+    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     SCREEN.fill("red")
     while True:
         # Gets position of the mouse
@@ -643,7 +685,7 @@ def one_winner():
 def two_winner():
     """Winner screen."""
     new_resolution = (1280, 720)
-    SCREEN = pygame.display.set_mode(new_resolution)
+    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     SCREEN.fill("blue")
     while True:
         # Gets position of the mouse
