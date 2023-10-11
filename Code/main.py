@@ -47,7 +47,7 @@ selcol3 = "Black"
 # Initiate mixer.
 mixer.init()
 click = pygame.mixer.Sound("../assets/Click.wav")
-pygame.mixer.music.load("../assets/Approach 3.mp3")
+pygame.mixer.music.load("../assets/Music.mp3")
 pygame.mixer.music.play()
 DEFAULT_VOLUME = 0.5
 mixer.music.set_volume(DEFAULT_VOLUME)
@@ -336,7 +336,7 @@ async def playerTurnLoop():
     PLAYERS = [1, 2]
     gameOver = False
 
-    board = image("board", pygame.image.load("../assets/Board8x7.drawio-modified (1).png"), 3, 0, 0)
+    board = image("board", pygame.image.load("../assets/Board.png"), 3, 0, 0)
     #p1 = image("p1", pygame.image.load("CounterRed.png"), 2, 0, 0)
     #p2 = image("p2", pygame.image.load("CounterBlue.png"), 2, 0, 0)
 
@@ -412,7 +412,7 @@ async def main():
 
 def get_font(size):  # Returns font in the desired size
 
-    return pygame.font.Font("../assets/DiloWorld-mLJLv.ttf", size)
+    return pygame.font.Font("../assets/Font.ttf", size)
 
 
 def main_menu():
@@ -565,7 +565,7 @@ def rules():
         HEADER_TEXT = get_font(45).render("Instructions", True, "Black")
         HEADER_RECT = HEADER_TEXT.get_rect(center=(640, 60))
         # Move instructions down lines
-        font = pygame.font.Font("../assets/DiloWorld-mLJLv.ttf", 30)
+        font = pygame.font.Font("../assets/Font.ttf", 30)
         text_color = ("Black")
         text = "Players choose yellow or red discs. They drop the discs " \
                "into the grid by clicking at that location, starting in the middle or at the edge to " \
