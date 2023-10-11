@@ -37,6 +37,11 @@ purple_display = pygame.transform.smoothscale(purple, (40, 40))
 green_display = pygame.transform.smoothscale(green, (40, 40))
 pink_display = pygame.transform.smoothscale(pink, (40, 40))
 
+# Default colourblind
+selcol1 = "Black"
+selcol2 = "Black"
+selcol3 = "Black"
+
 
 # Music
 # Initiate mixer.
@@ -785,14 +790,28 @@ def options():
 
 
         # Colourblind change buttons
+        if gridGUI.counterColour1 == "../assets/CounterRed.png":
+            selcol3 = "black"
+            selcol2 = "black"
+            selcol1 = "green"
+
+        if gridGUI.counterColour1 == "../assets/CounterYellow.png":
+            selcol3 = "black"
+            selcol2 = "green"
+            selcol1 = "black"
+
+        if gridGUI.counterColour1 == "../assets/CounterGreen.png":
+            selcol3 = "green"
+            selcol2 = "black"
+            selcol1 = "black"
         COLOR3 = Button(image=None, pos=(1090, 210),
-                        text_input="Color 3", font=get_font(25), base_color="Black", hovering_color="Green")
+                        text_input="Color 3", font=get_font(25), base_color=selcol3, hovering_color="Green")
 
         COLOR2 = Button(image=None, pos=(940, 210),
-                        text_input="Color 2", font=get_font(25), base_color="Black", hovering_color="Green")
+                        text_input="Color 2", font=get_font(25), base_color=selcol2, hovering_color="Green")
 
         COLOR1 = Button(image=None, pos=(790, 210),
-                          text_input="Color 1", font=get_font(25), base_color="Black", hovering_color="Green")
+                          text_input="Color 1", font=get_font(25), base_color=selcol1, hovering_color="Green")
 
         SCREEN.blit(red_display, (750, 250))
         SCREEN.blit(blue_display, (800, 250))
