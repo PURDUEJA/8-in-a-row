@@ -627,7 +627,19 @@ def rules():
         TAKETURN_RECT = TAKETURN_TEXT.get_rect(center=(1160, 370))
         SCREEN.blit(TAKETURN_TEXT, TAKETURN_RECT)
 
-        SCREEN.blit(HEADER_TEXT, HEADER_RECT)
+        # Overall powerup instructions
+        DESC_TEXT = get_font(30).render("Powerups can be collected by placing a counter on a slot that contains a powerup.", True, "Black")
+        DESC_RECT = DESC_TEXT.get_rect(center=(640, 470))
+        SCREEN.blit(DESC_TEXT, DESC_RECT)
+        DESC2_TEXT = get_font(30).render(
+            "And can be used by clicking your powerup counter slot on your side of the screen.", True, "Black")
+        DESC2_RECT = DESC2_TEXT.get_rect(center=(640, 510))
+        SCREEN.blit(DESC2_TEXT, DESC2_RECT)
+        DESC3_TEXT = get_font(30).render(
+            "These can be used at any point during your turn.", True, "Black")
+        DESC3_RECT = DESC3_TEXT.get_rect(center=(640, 550))
+        SCREEN.blit(DESC3_TEXT, DESC3_RECT)
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -794,12 +806,10 @@ def options():
             selcol3 = "black"
             selcol2 = "black"
             selcol1 = "green"
-
         if gridGUI.counterColour1 == "../assets/CounterYellow.png":
             selcol3 = "black"
             selcol2 = "green"
             selcol1 = "black"
-
         if gridGUI.counterColour1 == "../assets/CounterGreen.png":
             selcol3 = "green"
             selcol2 = "black"
@@ -883,4 +893,3 @@ def options():
         pygame.display.update()
 
 main_menu()
-
