@@ -17,7 +17,8 @@ pygame.init()
 current_resolution = (1280, 720)
 SCREEN = pygame.display.set_mode(current_resolution, pygame.RESIZABLE)
 pygame.display.set_caption("Ultimate Connect")
-
+# Background
+BG = pygame.image.load("../assets/Background.png")
 # Counters
 blue = pygame.image.load("../assets/CounterBlue.png")
 yellow = pygame.image.load("../assets/CounterYellow.png")
@@ -358,11 +359,6 @@ async def playerTurnLoop():
     # pygame.display.update()
     await getMouseInput()
 
-
-
-
-
-
     # This code doesn't do anything  lol
     gameOver = True
     # gridGUI.update()
@@ -419,14 +415,10 @@ def main_menu():
     """Main menu for the game."""
     new_resolution = (1280, 720)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
-    width = 1280
-    height = 720
-    speed = [0, 1]
-    clock = pygame.time.Clock()
-    ball = pygame.image.load("../assets/CounterYellow.png").convert()
-    ballrect = ball.get_rect()
 
     while True:
+        # Background
+        SCREEN.blit(BG, (0, 0))
         # Gets position of the mouse
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
@@ -469,14 +461,6 @@ def main_menu():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     pygame.quit()
                     sys.exit()
-        # Background animation
-        # https://www.geeksforgeeks.org/stimulate-bouncing-game-using-pygame/
-        ballrect = ballrect.move(speed)
-        if ballrect.top < 0 or ballrect.bottom > height:
-            speed[1] = -speed[1]
-        SCREEN.blit(ball, ballrect)
-        pygame.display.flip()
-        clock.tick(60)
 
         pygame.display.update()
 
@@ -627,8 +611,9 @@ def rules():
         TAKETURN_RECT = TAKETURN_TEXT.get_rect(center=(1160, 370))
         SCREEN.blit(TAKETURN_TEXT, TAKETURN_RECT)
 
-        # Overall powerup instructions
-        DESC_TEXT = get_font(30).render("Powerups can be collected by placing a counter on a slot that contains a powerup.", True, "Black")
+        # General powerup instructions
+        DESC_TEXT = get_font(30).render(
+            "Powerups can be collected by placing a counter on a slot that contains a powerup.", True, "Black")
         DESC_RECT = DESC_TEXT.get_rect(center=(640, 470))
         SCREEN.blit(DESC_TEXT, DESC_RECT)
         DESC2_TEXT = get_font(30).render(
