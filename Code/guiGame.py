@@ -1,6 +1,7 @@
 import asyncio
 import math
 import random
+import threading
 
 import pygame
 
@@ -438,12 +439,17 @@ class GUIclass:
                             if self.grid[0][x_coord - 1] in numbers:
                                 # print("2345234523452345")
 
+                                thread1 = threading.Thread(target=self.animateCounter(self.playerTurn, x_coord - 1))
+                                # Testing multithreading
+
+                                
                                 task = asyncio.create_task(self.animateCounter(self.playerTurn, x_coord - 1))
                                 # asyncio.run(task)
                                 # await self.animateCounter(self.playerTurn, x_coord - 1)
                                 # await self.animateCounter(self.playerTurn, x_coord - 1)
                                 # help
                                 print("hello")
+                                
                                 # await task
 
 
