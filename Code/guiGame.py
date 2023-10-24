@@ -1,7 +1,9 @@
 import asyncio
 import math
 import random
-import threading
+import multiprocessing
+import time
+from threading import Thread
 
 import pygame
 
@@ -150,7 +152,7 @@ class GUIclass:
                             self.images[f"{collumn}, {row}"] = image(powerup, scaled_image, 2, collumn, row )
         self.update()
 
-    async def animateCounter(self, player, column):
+    def animateCounter(self, player, column):
         print("AJKSDHJKLADHJKLAHJKLSDAHJKLDAHJKLSDJKLH")
         x = (column + 1) * (1011/10) + (9 - (self.getPercentage(self.x, (column * (1011/10)), 10)))
 
@@ -162,7 +164,7 @@ class GUIclass:
             else:
                 row += 1
         ending_y = (row * (711 / 6.96) + (10 - ((self.getPercentage(self.y, (row * (711 / 7)), 7)) * 3.47)))
-        current_y = 0
+        current_y = 11
 
         # soft hard coding AHAHAHAHAHAHAHAHAHAHAHAHA forehead
         match player:
@@ -172,23 +174,68 @@ class GUIclass:
                 bruh = "counterBlue.png"
         layer = 2
         self.images["fallingImage"] = image("fallingCounter", pygame.image.load(bruh), layer, x, current_y)
+
+        listofsortedimages = sorted(self.images.values(), key = lambda x:x.layer)
+        dontRenderThese = ["redGhost", "blueGhost", "board", "fallingCounter", "redCounter", "yellowCounter"]
+        deletedObjs = 0
+        for objectNum in range(len(listofsortedimages)):
+            print(objectNum)
+            # print(listofsortedimages[objectNum].Name)
+            if listofsortedimages[objectNum - deletedObjs].Name in dontRenderThese:
+                listofsortedimages.pop(objectNum - deletedObjs)
+                deletedObjs += 1
+        accel_factor = 1.012
+
+        column_image = pygame.image.load("Column.png")
+        column_x = x
         while ending_y > current_y:
-            difference = ending_y - current_y
-            current_y += (difference / 2)
-            current_y = math.ceil(current_y)
-            print(current_y)
+
+            # Simulate gravity
+            current_y *= accel_factor
+            if current_y < ending_y / 3:
+                accel_factor = 1.012
+            elif current_y < ending_y / 2:
+                accel_factor = 1.012
+            else:
+                accel_factor = 1.012
+
             self.images["fallingImage"] = image("fallingCounter", pygame.image.load(bruh), layer, x, current_y)
-            self.update()
-            await asyncio.sleep(0.1)
+
+
+
+            fill_color = (255, 255, 255)
+            fill_rect = pygame.Rect(x, current_y - 10, 91, 101)
+            pygame.draw.rect(self.screen, fill_color, fill_rect)
+            for object in listofsortedimages:
+                #    if object.Name != "redGhost" or object.Name != "blueGhost":
+                # self.screen.blit(object.File, (object.x, object.y))
+                print(object.Name)
+                print(object.x)
+                print(object.y)
+
+                print((object.x + 1) * (1011/10) + (9 - (self.getPercentage(self.x, (object.x * (1011/10)), 10))))
+                print(object.y * (711/6.96) + (10 - ((self.getPercentage(self.y, (object.y * (711/7)), 7)) * 3.47)))
+
+                # self.screen.blit(object.File, (object.x + 1) * (1011/10) + (9 - (self.getPercentage(self.x, (object.x * (1011/10)), 10))),
+                #                object.y * (711/6.96) + (10 - ((self.getPercentage(self.y, (object.y * (711/7)), 7)) * 3.47)))
+
+            self.screen.blit(self.images["fallingImage"].File, (x, current_y))
+
+
+            # self.screen.blit(self.images["board"].File, (self.images["board"].x, self.images["board"].y))
+            column_offset = 5
+            self.screen.blit(column_image, (x - column_offset, 0))
+            # self.update()
+            print(f"Updated {current_y}")
+
+
+            # test
+
+            # Stops only the final frame from rendering
+            if ending_y > current_y:
+                pygame.display.update()
+
         self.images.pop("fallingImage")
-        self.putCounter((column), self.playerTurn)
-        # print("456745674567")
-        print(f"Placed Counter {self.playerTurn} at ({column + 1},{column + 1})")
-        sound = pygame.mixer.Sound("assets_Click.wav")
-        sound.play()
-        if self.checkWinner(4):
-            self.gg()
-            running = False
 
 
     def updateTexts(self):
@@ -204,6 +251,11 @@ class GUIclass:
     def update(self):
         self.screen.fill((255, 255, 255))
         # Assume there are 5 layers.
+
+        # Create a list of keys and sort it based on the layer.
+        # Then iterate through this list and access the dictionary of images based on this.
+        # This would improve efficiency by more than 18x but cbf lol
+
         for i in range(5):
             for imageKey in self.images.keys():
                 if self.images[imageKey].layer == i:
@@ -223,7 +275,7 @@ class GUIclass:
                             (self.getPercentage(self.x, self.mouseX, 10) * (1011/10) + (
                                         9 - (self.getPercentage(self.x, self.mouseX, 10))), 10),
                         )
-                    elif self.images[imageKey].Name is not "board":
+                    elif self.images[imageKey].Name != "board":
                         self.screen.blit(
                             self.images[imageKey].File,
                             (
@@ -439,17 +491,23 @@ class GUIclass:
                             if self.grid[0][x_coord - 1] in numbers:
                                 # print("2345234523452345")
 
-                                thread1 = threading.Thread(target=self.animateCounter(self.playerTurn, x_coord - 1))
-                                # Testing multithreading
-
-                                
-                                task = asyncio.create_task(self.animateCounter(self.playerTurn, x_coord - 1))
+                                # task = asyncio.create_task(self.animateCounter(self.playerTurn, x_coord - 1))
                                 # asyncio.run(task)
                                 # await self.animateCounter(self.playerTurn, x_coord - 1)
                                 # await self.animateCounter(self.playerTurn, x_coord - 1)
                                 # help
+                                # p1 = multiprocessing.Process(target = self.animateCounter, args = [self.playerTurn, x_coord - 1])
+                                # p1.start()
+                                Thread(target = self.animateCounter(self.playerTurn, x_coord - 1)).start()
+                                self.putCounter((x_coord - 1), self.playerTurn)
+                                # print("456745674567")
+                                print(f"Placed Counter {self.playerTurn} at ({x_coord},{x_coord})")
+                                sound = pygame.mixer.Sound("assets_Click.wav")
+                                sound.play()
+                                if self.checkWinner(4):
+                                    self.gg()
+                                    running = False
                                 print("hello")
-                                
                                 # await task
 
 
