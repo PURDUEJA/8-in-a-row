@@ -566,26 +566,19 @@ def winner_screen():
         # Gets position of the mouse
         WIN_MOUSE_POS = pygame.mouse.get_pos()
 
-        # Return to main menu.
         WIN_BACK = Button(image=None, pos=(511/2, 150),
                           text_input="MAIN MENU", font=get_font(75), base_color="White", hovering_color="Green")
-
-        WIN_BACK.changeColor(WIN_MOUSE_POS)
-        WIN_BACK.update(SCREEN)
-
-        # Return to main menu.
         WIN_AGAIN = Button(image=None, pos=(511/2, 50),
                            text_input="Play Again", font=get_font(75), base_color="White", hovering_color="Green")
-
         QUIT_BUTTON = Button(image=None, pos=(511/2, 250),
                              text_input="QUIT", font=get_font(75), base_color="White", hovering_color="Green")
 
         WIN_AGAIN.changeColor(WIN_MOUSE_POS)
         WIN_AGAIN.update(SCREEN)
-
         QUIT_BUTTON.changeColor(WIN_MOUSE_POS)
         QUIT_BUTTON.update(SCREEN)
-
+        WIN_BACK.changeColor(WIN_MOUSE_POS)
+        WIN_BACK.update(SCREEN)
         # Runs button when clicked.
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -597,13 +590,9 @@ def winner_screen():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     mixer.music.play()
                     main_menu()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     game()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
                 if QUIT_BUTTON.checkForInput(WIN_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     pygame.quit()
