@@ -38,6 +38,32 @@ class GUIclass:
                             [0, 0]]
         self.powerupImages = {}
 
+    def reset(self, x, y):
+        self.counterColour1 = "../assets/CounterRed.png"
+        self.counterColour2 = "../assets/CounterBlue.png"
+        self.images = {}
+        self.text = {}
+        pygame.init()
+        self.screen = pygame.display.set_mode((x, y))
+        self.mouseX = 0
+        self.x = x
+        self.y = y
+        self.images["redGhost"] = image(
+            "redGhost", pygame.image.load(self.counterColour1), 1, 0, 0
+        )
+        self.images["blueGhost"] = image(
+            "blueGhost", pygame.image.load(self.counterColour2), 1, 0, 0
+        )
+        self.grid = []
+        self.playerTurn = 1
+        pygame.mixer.init()
+        self.powerups = {10: "GetCounter",
+                         11: "SkipTurn",
+                         12: "TakeTurn"}
+        self.powerupGrid = [[0, 0],
+                            [0, 0],
+                            [0, 0]]
+        self.powerupImages = {}
     def checkInRow(self, row, col, player, checkNumber):
         rows = len(self.grid)
         cols = len(self.grid[0])
@@ -458,11 +484,11 @@ class GUIclass:
                 self.text["test"] = image("test", text, 0, 170, 3)
 
     async def start(self):
-        running = True
-        while running:
+        self.running = True
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     # print(self.powerupGrid)
                     if event.button == 1: #Left click
@@ -518,7 +544,7 @@ class GUIclass:
                                 # print("3456345634563456")
                                 pass
                             self.updateToGrid(self.grid)
-                            if running:
+                            if self.running:
                                 match self.playerTurn:
                                     case 1:
                                         self.playerTurn = 2
@@ -579,7 +605,8 @@ class GUIclass:
             timer -= 1
             self.update()
             self.updateTexts()
-        return self.playerTurn
+        self.running = False
+        # return self.playerTurn
 
     def test(self):
         pygame.display.update()

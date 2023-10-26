@@ -280,6 +280,24 @@ async def getMouseInput():
                     x, y = pygame.mouse.get_pos()
                     print(f"Mouse clicked at position ({x}, {y})")
 
+
+placedCounters = []
+grid = []
+for y in range(7):
+    grid_list = []
+
+    for x in range(8):
+        grid_list.append(0)
+
+    grid.append(grid_list)
+playerTurn = 1
+gridGUI = GUIclass(1011, 711)
+#putCounter(0, 1)
+#putCounter(0, 2)
+gridGUI.updateToGrid(grid)
+gridGUI.spawnPowerups()
+gridGUI.updateToGrid(grid)
+gridGUI.update()
 def getPercentage(self, max, number2, percentiles):
     # 700, 50, 7
     result = max / percentiles  # 700 / 7 = 100
@@ -311,28 +329,28 @@ async def startMouseCapture():
                     gridGUI.updateToGrid(grid)
 
 
-placedCounters = []
-grid = []
-for y in range(7):
-    grid_list = []
-
-    for x in range(8):
-        grid_list.append(0)
-
-    grid.append(grid_list)
-playerTurn = 1
-gridGUI = GUIclass(1011, 711)
-#putCounter(0, 1)
-#putCounter(0, 2)
-gridGUI.updateToGrid(grid)
-gridGUI.spawnPowerups()
-gridGUI.updateToGrid(grid)
-gridGUI.update()
 
 
 
 
 async def playerTurnLoop():
+    placedCounters = []
+    grid = []
+    for y in range(7):
+        grid_list = []
+
+        for x in range(8):
+            grid_list.append(0)
+
+        grid.append(grid_list)
+    playerTurn = 1
+    gridGUI = GUIclass(1011, 711)
+    # putCounter(0, 1)
+    # putCounter(0, 2)
+    gridGUI.updateToGrid(grid)
+    gridGUI.spawnPowerups()
+    gridGUI.updateToGrid(grid)
+    gridGUI.update()
     # startMouseCapture()
     PLAYERS = [1, 2]
     gameOver = False
@@ -345,12 +363,16 @@ async def playerTurnLoop():
     #gridGUI.images["p1"] = p1
     #gridGUI.images["p2"] = p2
     gridGUI.update()
-
-    winner = await gridGUI.start()
-    gridGUI.test()
+    if bruh123 == 123:
+        winner = await gridGUI.start()
+        gridGUI.test()
+        return winner
+    else:
+        test = await gridGUI.start()
+        gridGUI.test()
     #await asyncio.sleep(5)
     # pygame.display.update()
-    winner_screen()
+
 
     # This code doesn't do anything  lol
     gameOver = True
@@ -395,7 +417,17 @@ async def main():
     # checkSurroundings(11, 1, 1)
     printGrid()
     print("Winner Found" if checkWinner(4) else "Nothing Found")
-    await playerTurnLoop()
+    running = "ye"
+    while running == "ye":
+        global bruh123
+        bruh123 = 1
+        await playerTurnLoop()
+        bruh123 = 123
+        lol = winner_screen()
+        if lol == "bruh":
+            pass
+        else:
+            running = "no"
     # checkDiagonallyOpposite(8, 4, 1, 4)
     # checkDiagonallyOpposite(0, 0, 1, 4)
 
@@ -569,10 +601,10 @@ def winner_screen():
                 if WIN_BACK.checkForInput(WIN_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     mixer.music.play()
-                    main_menu()
+                    return "main"
                 if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
-                    game()
+                    return "bruh"
                 if QUIT_BUTTON.checkForInput(WIN_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     pygame.quit()
