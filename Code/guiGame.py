@@ -7,7 +7,7 @@ from threading import Thread
 
 import pygame
 
-print("asjhdfkjahsdfgjakhsdfkjhgasdffdsa")
+
 
 
 class GUIclass:
@@ -155,7 +155,6 @@ class GUIclass:
         self.update()
 
     def animateCounter(self, player, column):
-        print("AJKSDHJKLADHJKLAHJKLSDAHJKLDAHJKLSDJKLH")
         x = (column + 1) * (1011/10) + (9 - (self.getPercentage(self.x, (column * (1011/10)), 10)))
 
         underneath = False
@@ -181,7 +180,6 @@ class GUIclass:
         dontRenderThese = ["redGhost", "blueGhost", "board", "fallingCounter", "redCounter", "yellowCounter"]
         deletedObjs = 0
         for objectNum in range(len(listofsortedimages)):
-            print(objectNum)
             # print(listofsortedimages[objectNum].Name)
             if listofsortedimages[objectNum - deletedObjs].Name in dontRenderThese:
                 listofsortedimages.pop(objectNum - deletedObjs)
@@ -211,15 +209,10 @@ class GUIclass:
             for object in listofsortedimages:
                 #    if object.Name != "redGhost" or object.Name != "blueGhost":
                 # self.screen.blit(object.File, (object.x, object.y))
-                print(object.Name)
-                print(object.x)
-                print(object.y)
-
-                print((object.x + 1) * (1011/10) + (9 - (self.getPercentage(self.x, (object.x * (1011/10)), 10))))
-                print(object.y * (711/6.96) + (10 - ((self.getPercentage(self.y, (object.y * (711/7)), 7)) * 3.47)))
 
                 # self.screen.blit(object.File, (object.x + 1) * (1011/10) + (9 - (self.getPercentage(self.x, (object.x * (1011/10)), 10))),
                 #                object.y * (711/6.96) + (10 - ((self.getPercentage(self.y, (object.y * (711/7)), 7)) * 3.47)))
+                pass
 
             self.screen.blit(self.images["fallingImage"].File, (x, current_y))
 
@@ -228,7 +221,6 @@ class GUIclass:
             column_offset = 5
             self.screen.blit(column_image, (x - column_offset, 0))
             # self.update()
-            print(f"Updated {current_y}")
 
 
             # test
@@ -339,11 +331,8 @@ class GUIclass:
 
             while underneath is False:
                 if self.isUnderBlocked(row, collumn):
-                    print("lmao")
                     powerup = self.place(row, collumn, player)
                     # print("567856785678")
-                    print(self.powerupGrid)
-                    print(self.playerTurn)
                     if self.powerupGrid[2][self.playerTurn - 1] != 0:
                         pass
                     elif powerup != 0:
@@ -469,7 +458,6 @@ class GUIclass:
                 self.text["test"] = image("test", text, 0, 170, 3)
 
     async def start(self):
-        print("started")
         running = True
         while running:
             for event in pygame.event.get():
@@ -489,11 +477,9 @@ class GUIclass:
                         # print("asdfasdfasdfasfs")
                         if x <= (1011/10) or x >= (1011 - (1011/10)):
 
-                            print(f"y: {y_coord}")
                             other_x = x_coord
                             if x_coord == 9:
                                 other_x = 1
-                            print(f"x: {other_x}")
                             try:
                                 power = self.powerups[self.powerupGrid[y_coord - 1][other_x]]
                                 self.usePower(power, other_x + 1)
@@ -520,19 +506,17 @@ class GUIclass:
                                 Thread(target = self.animateCounter(self.playerTurn, x_coord - 1)).start()
                                 self.putCounter((x_coord - 1), self.playerTurn)
                                 # print("456745674567")
-                                print(f"Placed Counter {self.playerTurn} at ({x_coord},{x_coord})")
                                 sound = pygame.mixer.Sound("../assets/Click.wav")
                                 sound.play()
                                 if self.checkWinner(4):
-                                    self.gg()
+                                    await self.gg()
                                     running = False
-                                print("hello")
                                 # await task
 
 
                             else:
                                 # print("3456345634563456")
-                                print("Can't place here")
+                                pass
                             self.updateToGrid(self.grid)
                             if running:
                                 match self.playerTurn:
@@ -561,8 +545,39 @@ class GUIclass:
     def get_font(self, size):  # Returns font in the desired size
         return pygame.font.Font("../assets/Font.ttf", size)
 
-    def gg(self):
-        pygame.display.update()
+    async def gg(self):
+        timer = 10
+        match self.playerTurn:
+            case 1:
+                if self.counterColour1 == "../assets/CounterRed.png":
+                    color = (255, 0, 0)
+                elif self.counterColour1 == "../assets/CounterYellow.png":
+                    color = "#ffff33"
+                elif self.counterColour1 == "../assets/CounterGreen.png":
+                    color = "#80ff00"
+            case 2:
+                if self.counterColour2 == "../assets/CounterBlue.png":
+                    color = (0, 0, 255)
+                elif self.counterColour2 == "../assets/CounterPurple.png":
+                    color = "#ff00ff"
+                elif self.counterColour2 == "../assets/CounterPink.png":
+                    color = "#ff0080"
+        sound = pygame.mixer.Sound("../assets/Win.mp3")
+        sound.set_volume(0.1)
+        sound.play()
+        text_bg = self.get_font(110).render(f"Player {self.playerTurn} wins", True, "Black")
+        self.text["1"] = image("1", text_bg, 0, 205, 0)
+        w_text = self.get_font(108).render(f"Player {self.playerTurn} wins", True, color)
+        self.text["2"] = image("2", w_text, 0, 208, 0)
+        print(self.grid)
+        while 0 < timer:
+            text = self.get_font(50).render(f"Exiting game in {timer}s", True, "Black")
+            self.text["test"] = image("test", text, 0, 320, 711/2)
+
+            await asyncio.sleep(1)
+            timer -= 1
+            self.update()
+            self.updateTexts()
         return self.playerTurn
 
     def test(self):

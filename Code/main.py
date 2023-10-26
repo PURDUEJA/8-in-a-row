@@ -345,35 +345,11 @@ async def playerTurnLoop():
     #gridGUI.images["p1"] = p1
     #gridGUI.images["p2"] = p2
     gridGUI.update()
-    winner = await gridGUI.start()
-    font = pygame.font.Font(None, 100)
-    match winner:
-        case 1:
-            if gridGUI.counterColour1 == "../assets/CounterRed.png":
-                color = (255, 0, 0)
-            elif gridGUI.counterColour1 == "../assets/CounterYellow.png":
-                color = "#ffff33"
-            elif gridGUI.counterColour1 == "../assets/CounterGreen.png":
-                color = "#80ff00"
-        case 2:
-            if gridGUI.counterColour2 == "../assets/CounterBlue.png":
-                color = (0, 0, 255)
-            elif gridGUI.counterColour2 == "../assets/CounterPurple.png":
-                color = "#ff00ff"
-            elif gridGUI.counterColour2 == "../assets/CounterPink.png":
-                color = "#ff0080"
-    sound = pygame.mixer.Sound("../assets/Win.mp3")
-    sound.set_volume(0.1)
-    sound.play()
-    text_bg = get_font(110).render(f"Player {winner} wins", True, "Black")
-    gridGUI.screen.blit(text_bg, (205, 0))
-    text = get_font(108).render(f"Player {winner} wins", True, color)
-    gridGUI.screen.blit(text, (208, 0))
 
+    winner = await gridGUI.start()
     gridGUI.test()
-    print(f"Winner is {winner}")
+    #await asyncio.sleep(5)
     # pygame.display.update()
-    await asyncio.sleep(5)
     winner_screen()
 
     # This code doesn't do anything  lol
@@ -559,19 +535,23 @@ def game():
 
 def winner_screen():
     """Winner screen."""
-    new_resolution = (511, 355)
+    new_resolution = (1011, 711)
     SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
     SCREEN.fill("black")
     while True:
         # Gets position of the mouse
         WIN_MOUSE_POS = pygame.mouse.get_pos()
 
-        WIN_BACK = Button(image=None, pos=(511/2, 150),
-                          text_input="MAIN MENU", font=get_font(75), base_color="White", hovering_color="Green")
-        WIN_AGAIN = Button(image=None, pos=(511/2, 50),
-                           text_input="Play Again", font=get_font(75), base_color="White", hovering_color="Green")
-        QUIT_BUTTON = Button(image=None, pos=(511/2, 250),
-                             text_input="QUIT", font=get_font(75), base_color="White", hovering_color="Green")
+        WIN_TEXT = get_font(75).render("Game Over.", True, "White")
+        WIN_RECT = WIN_TEXT.get_rect(center=(1011/2, 60))
+        SCREEN.blit(WIN_TEXT, WIN_RECT)
+
+        WIN_BACK = Button(image=None, pos=(1011/2, 400),
+                          text_input="MAIN MENU", font=get_font(45), base_color="White", hovering_color="Green")
+        WIN_AGAIN = Button(image=None, pos=(1011/2, 200),
+                           text_input="Play Again", font=get_font(45), base_color="White", hovering_color="Green")
+        QUIT_BUTTON = Button(image=None, pos=(1011/2, 600),
+                             text_input="QUIT", font=get_font(45), base_color="White", hovering_color="Green")
 
         WIN_AGAIN.changeColor(WIN_MOUSE_POS)
         WIN_AGAIN.update(SCREEN)
@@ -610,7 +590,7 @@ def rules():
         HEADER_RECT = HEADER_TEXT.get_rect(center=(640, 60))
         # Move instructions down lines
         font = pygame.font.Font("../assets/Font.ttf", 30)
-        text_color = ("Black")
+        text_color = "Black"
         text = "Players choose yellow or red discs. They drop the discs " \
                "into the grid by clicking at that location, starting in the middle or at the edge to " \
                "stack their colored discs upwards, horizontally, or diagonally. " \
