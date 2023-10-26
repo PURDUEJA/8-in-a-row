@@ -546,6 +546,7 @@ class GUIclass:
         return pygame.font.Font("../assets/Font.ttf", size)
 
     async def gg(self):
+        self.updateToGrid(self.grid)
         timer = 10
         match self.playerTurn:
             case 1:
@@ -570,7 +571,7 @@ class GUIclass:
         w_text = self.get_font(108).render(f"Player {self.playerTurn} wins", True, color)
         self.text["2"] = image("2", w_text, 0, 208, 0)
         print(self.grid)
-        while 0 < timer:
+        while 0 <= timer:
             text = self.get_font(50).render(f"Exiting game in {timer}s", True, "Black")
             self.text["test"] = image("test", text, 0, 320, 711/2)
 
