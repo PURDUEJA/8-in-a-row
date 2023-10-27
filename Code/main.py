@@ -29,6 +29,8 @@ pink = pygame.image.load("../assets/CounterPink.png")
 getcounter = pygame.image.load("../assets/GetCounter.png")
 skipturn = pygame.image.load("../assets/SkipTurn.png")
 taketurn = pygame.image.load("../assets/TakeTurn.png")
+colorchosen = "red"
+
 
 # Adjusted sizes for displaying in options
 blue_display = pygame.transform.smoothscale(blue, (40, 40))
@@ -345,6 +347,28 @@ async def playerTurnLoop():
         grid.append(grid_list)
     playerTurn = 1
     gridGUI = GUIclass(1011, 711)
+    if colorchosen == "red":
+        pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+        gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterRed.png"), 1, 0, 0)
+        gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterBlue.png"), 1, 0, 0)
+        gridGUI.counterColour1 = "../assets/CounterRed.png"
+        gridGUI.counterColour2 = "../assets/CounterBlue.png"
+
+    if colorchosen == "yellow":
+        pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+        gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterYellow.png"), 1, 0, 0)
+        gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterPurple.png"), 1, 0, 0)
+        gridGUI.counterColour1 = "../assets/CounterYellow.png"
+        gridGUI.counterColour2 = "../assets/CounterPurple.png"
+
+    if colorchosen == "green":
+        pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
+        gridGUI.images["redGhost"] = image("redGhost", pygame.image.load("../assets/CounterGreen.png"), 1, 0, 0)
+        gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterPink.png"), 1, 0, 0)
+        gridGUI.counterColour1 = "../assets/CounterGreen.png"
+        gridGUI.counterColour2 = "../assets/CounterPink.png"
+    else:
+        pass
     # putCounter(0, 1)
     # putCounter(0, 2)
     gridGUI.updateToGrid(grid)
@@ -582,11 +606,11 @@ def winner_screen():
         SCREEN.blit(WIN_TEXT, WIN_RECT)
 
         WIN_BACK = Button(image=None, pos=(1011/2, 400),
-                          text_input="MAIN MENU", font=get_font(45), base_color="White", hovering_color="Green")
+                          text_input="Back", font=get_font(45), base_color="White", hovering_color="Green")
         WIN_AGAIN = Button(image=None, pos=(1011/2, 200),
                            text_input="Play Again", font=get_font(45), base_color="White", hovering_color="Green")
         QUIT_BUTTON = Button(image=None, pos=(1011/2, 600),
-                             text_input="QUIT", font=get_font(45), base_color="White", hovering_color="Green")
+                             text_input="Quit", font=get_font(45), base_color="White", hovering_color="Green")
 
         WIN_AGAIN.changeColor(WIN_MOUSE_POS)
         WIN_AGAIN.update(SCREEN)
@@ -604,6 +628,8 @@ def winner_screen():
                 if WIN_BACK.checkForInput(WIN_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
                     mixer.music.play()
+                    new_resolution = (1280, 720)
+                    SCREEN = pygame.display.set_mode(new_resolution)
                     return "main"
                 if WIN_AGAIN.checkForInput(WIN_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
@@ -717,8 +743,10 @@ def rules():
 
 def options():
     """Allows the user to change some settings, such as colourblindness."""
-    new_resolution = (1280, 721)
+    new_resolution = (1280, 720)
     SCREEN = pygame.display.set_mode(new_resolution)
+    global colorchosen
+    #colorchosen = "red"
     while True:
 
         current_volume = round(pygame.mixer.music.get_volume(), 1)
@@ -844,6 +872,8 @@ def options():
                     gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterBlue.png"), 1, 0, 0)
                     gridGUI.counterColour1 = "../assets/CounterRed.png"
                     gridGUI.counterColour2 = "../assets/CounterBlue.png"
+                    colorchosen = "red"
+
 
                 if COLOR2.checkForInput(OPTIONS_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
@@ -851,6 +881,8 @@ def options():
                     gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterPurple.png"), 1, 0, 0)
                     gridGUI.counterColour1 = "../assets/CounterYellow.png"
                     gridGUI.counterColour2 = "../assets/CounterPurple.png"
+                    colorchosen = "yellow"
+
 
                 if COLOR3.checkForInput(OPTIONS_MOUSE_POS):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../assets/Click.wav"))
@@ -858,6 +890,8 @@ def options():
                     gridGUI.images["blueGhost"] = image("blueGhost", pygame.image.load("../assets/CounterPink.png"), 1, 0, 0)
                     gridGUI.counterColour1 = "../assets/CounterGreen.png"
                     gridGUI.counterColour2 = "../assets/CounterPink.png"
+                    colorchosen = "green"
+
 
         pygame.display.update()
 

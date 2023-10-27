@@ -12,6 +12,7 @@ import pygame
 
 class GUIclass:
     def __init__(self, x, y):
+        print("faggot")
         self.counterColour1 = "../assets/CounterRed.png"
         self.counterColour2 = "../assets/CounterBlue.png"
         self.images = {}
@@ -39,8 +40,6 @@ class GUIclass:
         self.powerupImages = {}
 
     def reset(self, x, y):
-        self.counterColour1 = "../assets/CounterRed.png"
-        self.counterColour2 = "../assets/CounterBlue.png"
         self.images = {}
         self.text = {}
         pygame.init()
@@ -210,7 +209,7 @@ class GUIclass:
             if listofsortedimages[objectNum - deletedObjs].Name in dontRenderThese:
                 listofsortedimages.pop(objectNum - deletedObjs)
                 deletedObjs += 1
-        accel_factor = 1.012
+        accel_factor = 2.012
 
         column_image = pygame.image.load("../assets/Column.png")
         column_x = x
@@ -219,11 +218,11 @@ class GUIclass:
             # Simulate gravity
             current_y *= accel_factor
             if current_y < ending_y / 3:
-                accel_factor = 1.012
+                accel_factor = 2.012
             elif current_y < ending_y / 2:
-                accel_factor = 1.012
+                accel_factor = 2.012
             else:
-                accel_factor = 1.012
+                accel_factor = 2.012
 
             self.images["fallingImage"] = image("fallingCounter", pygame.image.load(bruh), layer, x, current_y)
 
