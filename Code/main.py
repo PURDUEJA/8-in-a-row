@@ -428,6 +428,7 @@ async def main():
             pass
         else:
             running = "no"
+
     # checkDiagonallyOpposite(8, 4, 1, 4)
     # checkDiagonallyOpposite(0, 0, 1, 4)
 
@@ -492,6 +493,8 @@ def main_menu():
 
 def play():
     """Puts user into the start game menu"""
+    new_resolution = (1280, 720)
+    SCREEN = pygame.display.set_mode(new_resolution)
     while True:
 
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
@@ -554,7 +557,7 @@ def play():
 def game():
     """Plays the game itself"""
     new_resolution = (1011, 711)
-    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    SCREEN = pygame.display.set_mode(new_resolution)
     current_resolution = new_resolution
     asyncio.run(main())
 
@@ -568,7 +571,7 @@ def game():
 def winner_screen():
     """Winner screen."""
     new_resolution = (1011, 711)
-    SCREEN = pygame.display.set_mode(new_resolution, pygame.RESIZABLE)
+    SCREEN = pygame.display.set_mode(new_resolution)
     SCREEN.fill("black")
     while True:
         # Gets position of the mouse
@@ -614,6 +617,8 @@ def winner_screen():
 
 def rules():
     """Rules menu."""
+    new_resolution = (1280, 721)
+    SCREEN = pygame.display.set_mode(new_resolution)
     SCREEN.fill("White")
     while True:
         RULES_MOUSE_POS = pygame.mouse.get_pos()
@@ -712,6 +717,8 @@ def rules():
 
 def options():
     """Allows the user to change some settings, such as colourblindness."""
+    new_resolution = (1280, 721)
+    SCREEN = pygame.display.set_mode(new_resolution)
     while True:
 
         current_volume = round(pygame.mixer.music.get_volume(), 1)
