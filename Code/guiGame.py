@@ -12,7 +12,6 @@ import pygame
 
 class GUIclass:
     def __init__(self, x, y):
-        print("faggot")
         self.counterColour1 = "../assets/CounterRed.png"
         self.counterColour2 = "../assets/CounterBlue.png"
         self.images = {}
